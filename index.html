@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO + AIO 改善教學系統 — 苼莛</title>
+<style>
+  :root {
+    --primary: #2d6a4f;
+    --primary-light: #52b788;
+    --secondary: #1565c0;
+    --accent: #f4a261;
+    --danger: #e63946;
+    --bg: #f8f9fa;
+    --sidebar-bg: #1b1b2f;
+    --sidebar-text: #e0e0e0;
+    --card: #ffffff;
+    --border: #e0e0e0;
+    --text: #222;
+    --muted: #666;
+    --success: #2d6a4f;
+    --warning: #e67e22;
+    --code-bg: #f0f0f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: 280px;
+    min-width: 280px;
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid #333;
+  }
+
+  #sidebar-header h1 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+  }
+
+  #sidebar-header p {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+  }
+
+  /* Progress bar */
+  #progress-wrap {
+    padding: 12px 16px;
+    border-bottom: 1px solid #333;
+  }
+
+  #progress-label {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #progress-bar-outer {
+    background: #333;
+    border-radius: 99px;
+    height: 6px;
+    overflow: hidden;
+  }
+
+  #progress-bar-inner {
+    background: var(--primary-light);
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* Nav groups */
+  .nav-group {
+    padding: 8px 0;
+    border-bottom: 1px solid #2a2a3f;
+  }
+
+  .nav-group-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #888;
+    padding: 8px 16px 4px;
+    text-transform: uppercase;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #ccc;
+    transition: background 0.15s, color 0.15s;
+    border-radius: 0;
+    text-decoration: none;
+  }
+
+  .nav-item:hover { background: #2a2a3f; color: #fff; }
+  .nav-item.active { background: #2d6a4f22; color: var(--primary-light); border-left: 3px solid var(--primary-light); }
+  .nav-item.done { color: #52b788; }
+  .nav-item.done .nav-check { background: var(--primary-light); border-color: var(--primary-light); }
+  .nav-item.done .nav-check::after { content: '✓'; font-size: 9px; color: #fff; }
+
+  .nav-check {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border: 1.5px solid #555;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+
+  .nav-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 99px;
+    margin-left: auto;
+  }
+
+  .badge-red { background: #e6394622; color: #e63946; }
+  .badge-orange { background: #e67e2222; color: #e67e22; }
+  .badge-green { background: #2d6a4f22; color: #52b788; }
+
+  /* MAIN CONTENT */
+  #main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+  }
+
+  .page { display: none; padding: 36px 48px 60px; max-width: 820px; }
+  .page.active { display: block; }
+
+  /* Overview page */
+  #page-overview .hero {
+    background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+    color: #fff;
+    padding: 36px;
+    border-radius: 16px;
+    margin-bottom: 28px;
+  }
+
+  #page-overview .hero h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  #page-overview .hero p { font-size: 15px; opacity: 0.85; }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .score-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .score-card h4 { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .score-card .score { font-size: 36px; font-weight: 800; color: var(--danger); }
+  .score-card .score span { font-size: 16px; color: var(--muted); font-weight: 400; }
+  .score-card p { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  .problems-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .problem-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .problem-icon { font-size: 20px; margin-top: 2px; }
+  .problem-item h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .problem-item p { font-size: 13px; color: var(--muted); }
+
+  /* Section headers */
+  h2.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h3.sub-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: var(--primary);
+  }
+
+  /* Content cards */
+  .content-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  /* Steps */
+  .step {
+    margin-bottom: 28px;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .step-num {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step-header h3 { font-size: 15px; font-weight: 600; }
+
+  .step-content { padding-left: 44px; }
+
+  /* Verify box */
+  .verify-box {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #1b5e20;
+  }
+
+  .verify-box strong { display: block; margin-bottom: 4px; }
+
+  /* Warning box */
+  .warning-box {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #5d4037;
+  }
+
+  /* Danger box */
+  .danger-box {
+    background: #ffebee;
+    border: 1px solid #ef9a9a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #b71c1c;
+  }
+
+  /* Info box */
+  .info-box {
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #0d47a1;
+  }
+
+  /* Code block */
+  pre {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 12.5px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-family: "Fira Code", "Consolas", monospace;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #333;
+    color: #ccc;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .copy-btn:hover { background: #555; }
+  .copy-btn.copied { background: var(--primary); color: #fff; }
+
+  code {
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+  }
+
+  pre code { background: none; padding: 0; }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 12px 0;
+  }
+
+  th {
+    background: #f0f0f0;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    border: 1px solid var(--border);
+  }
+
+  td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: #fafafa; }
+
+  /* Checklist */
+  .checklist { list-style: none; margin: 12px 0; }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+
+  .task-checkbox {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: var(--primary);
+  }
+
+  .checklist li.checked label { text-decoration: line-through; color: var(--muted); }
+
+  /* Badge priority */
+  .priority {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+
+  .priority-high { background: #ffebee; color: #c62828; }
+  .priority-medium { background: #fff8e1; color: #e65100; }
+  .priority-low { background: #e8f5e9; color: #1b5e20; }
+
+  /* Task completion button */
+  .complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .complete-btn:hover { background: #1b4332; }
+  .complete-btn:active { transform: scale(0.98); }
+  .complete-btn.completed { background: #888; }
+
+  /* Tool list */
+  .tool-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .tool-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .tool-item a { color: var(--secondary); text-decoration: none; font-weight: 500; font-size: 13px; }
+  .tool-item a:hover { text-decoration: underline; }
+  .tool-item p { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* Scrollbar */
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-thumb { background: #444; border-radius: 99px; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    body { flex-direction: column; }
+    #sidebar { width: 100%; height: auto; position: relative; }
+    .page { padding: 20px; }
+    .score-grid, .problems-grid, .tool-list { grid-template-columns: 1fr; }
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #e3f2fd;
+    color: #1565c0;
+    margin-right: 4px;
+  }
+
+  ol { padding-left: 20px; }
+  ol li { margin-bottom: 6px; font-size: 14px; }
+  ul { padding-left: 20px; }
+  ul li { margin-bottom: 4px; font-size: 14px; }
+
+  p { margin-bottom: 10px; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <h1>SEO + AIO 改善系統</h1>
+    <p>苼莛國際生技</p>
+  </div>
+  <div id="progress-wrap">
+    <div id="progress-label">
+      <span>整體進度</span>
+      <span id="progress-text">0 / 23</span>
+    </div>
+    <div id="progress-bar-outer">
+      <div id="progress-bar-inner"></div>
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">總覽</div>
+    <a class="nav-item active" onclick="showPage('overview')">
+      <span>📊</span> 分析總覽
+    </a>
+    <a class="nav-item" onclick="showPage('tools')">
+      <span>🔧</span> 驗證工具清單
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">🏪 yardley.tw（Shopline）</div>
+    <a class="nav-item" id="nav-y01" onclick="showPage('y01')">
+      <div class="nav-check" id="check-y01"></div>
+      <span>Y-01/02 Meta Description</span>
+      <span class="nav-badge badge-red">最高</span>
+    </a>
+    <a class="nav-item" id="nav-y03" onclick="showPage('y03')">
+      <div class="nav-check" id="check-y03"></div>
+      <span>Y-03 Open Graph</span>
+      <span class="nav-badge badge-red">最高</span>
+    </a>
+    <a class="nav-item" id="nav-y04" onclick="showPage('y04')">
+      <div class="nav-check" id="check-y04"></div>
+      <span>Y-04 圖片 Alt 屬性</span>
+      <span class="nav-badge badge-red">最高</span>
+    </a>
+    <a class="nav-item" id="nav-y05" onclick="showPage('y05')">
+      <div class="nav-check" id="check-y05"></div>
+      <span>Y-05 H1 結構確認</span>
+      <span class="nav-badge badge-red">最高</span>
+    </a>
+    <a class="nav-item" id="nav-y06" onclick="showPage('y06')">
+      <div class="nav-check" id="check-y06"></div>
+      <span>Y-06/07/08 Schema</span>
+      <span class="nav-badge badge-red">最高</span>
+    </a>
+    <a class="nav-item" id="nav-y09" onclick="showPage('y09')">
+      <div class="nav-check" id="check-y09"></div>
+      <span>Y-09 Title 優化</span>
+      <span class="nav-badge badge-orange">高</span>
+    </a>
+    <a class="nav-item" id="nav-y10" onclick="showPage('y10')">
+      <div class="nav-check" id="check-y10"></div>
+      <span>Y-10 內部連結策略</span>
+      <span class="nav-badge badge-orange">高</span>
+    </a>
+    <a class="nav-item" id="nav-y11" onclick="showPage('y11')">
+      <div class="nav-check" id="check-y11"></div>
+      <span>Y-11 品牌 About 頁</span>
+      <span class="nav-badge badge-orange">高</span>
+    </a>
+    <a class="nav-item" id="nav-y12" onclick="showPage('y12')">
+      <div class="nav-check" id="check-y12"></div>
+      <span>Y-12 Google Business</span>
+      <span class="nav-badge badge-green">中</span>
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">📰 shengtingbio.com（WordPress）</div>
+    <a class="nav-item" id="nav-s01" onclick="showPage('s01')">
+      <div class="nav-check" id="check-s01"></div>
+      <span>S-01 安裝 Yoast SEO</span>
+      <span class="nav-badge badge-red">先做！</span>
+    </a>
+    <a class="nav-item" id="nav-s02" onclick="showPage('s02')">
+      <div class="nav-check" id="check-s02"></div>
+      <span>S-02/03 Meta Description</span>
+      <span class="nav-badge badge-red">最高</span>
+    </a>
+    <a class="nav-item" id="nav-s04" onclick="showPage('s04')">
+      <div class="nav-check" id="check-s04"></div>
+      <span>S-04 修正 H1 層級</span>
+      <span class="nav-badge badge-red">最高</span>
+    </a>
+    <a class="nav-item" id="nav-s05" onclick="showPage('s05')">
+      <div class="nav-check" id="check-s05"></div>
+      <span>S-05 Article Schema</span>
+      <span class="nav-badge badge-red">AIO關鍵</span>
+    </a>
+    <a class="nav-item" id="nav-s06" onclick="showPage('s06')">
+      <div class="nav-check" id="check-s06"></div>
+      <span>S-06 一句話摘要</span>
+      <span class="nav-badge badge-orange">高</span>
+    </a>
+    <a class="nav-item" id="nav-s07" onclick="showPage('s07')">
+      <div class="nav-check" id="check-s07"></div>
+      <span>S-07 FAQ Schema</span>
+      <span class="nav-badge badge-orange">高</span>
+    </a>
+    <a class="nav-item" id="nav-s08" onclick="showPage('s08')">
+      <div class="nav-check" id="check-s08"></div>
+      <span>S-08 參考文獻</span>
+      <span class="nav-badge badge-orange">高</span>
+    </a>
+    <a class="nav-item" id="nav-s09" onclick="showPage('s09')">
+      <div class="nav-check" id="check-s09"></div>
+      <span>S-09 URL 英文化</span>
+      <span class="nav-badge badge-green">中</span>
+    </a>
+    <a class="nav-item" id="nav-s10" onclick="showPage('s10')">
+      <div class="nav-check" id="check-s10"></div>
+      <span>S-10 作者頁 + Schema</span>
+      <span class="nav-badge badge-green">中</span>
+    </a>
+    <a class="nav-item" id="nav-s11" onclick="showPage('s11')">
+      <div class="nav-check" id="check-s11"></div>
+      <span>S-11 圖片 Alt 補齊</span>
+      <span class="nav-badge badge-green">中</span>
+    </a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+<!-- OVERVIEW PAGE -->
+<div class="page active" id="page-overview">
+  <div class="hero">
+    <h2>SEO + AIO 改善分析報告</h2>
+    <p>分析日期：2026-05-28 ｜ 分析網站：yardley.tw + shengtingbio.com</p>
+  </div>
+
+  <h2 class="section-title">🎯 AIO 可引用性評分</h2>
+  <div class="score-grid">
+    <div class="score-card">
+      <h4>yardley.tw 目前評分</h4>
+      <div class="score">1.5<span> / 10</span></div>
+      <p>電商站缺少 Schema、Meta、Alt，AI 幾乎無法識別</p>
+    </div>
+    <div class="score-card">
+      <h4>shengtingbio.com 目前評分</h4>
+      <div class="score">3.5<span> / 10</span></div>
+      <p>內容站有文章基礎，但缺少 Schema 和摘要格式</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">🔴 四大最嚴重問題</h2>
+  <div class="problems-grid">
+    <div class="problem-item">
+      <div class="problem-icon">📄</div>
+      <div>
+        <h4>無 Schema Markup</h4>
+        <p>兩站均無結構化資料，AI 引用機率接近 0%</p>
+      </div>
+    </div>
+    <div class="problem-item">
+      <div class="problem-icon">✍️</div>
+      <div>
+        <h4>Meta Description 缺失</h4>
+        <p>Google 自動抓取雜亂文字，CTR 損失 15-30%</p>
+      </div>
+    </div>
+    <div class="problem-item">
+      <div class="problem-icon">🖼️</div>
+      <div>
+        <h4>圖片無 Alt 屬性</h4>
+        <p>圖片搜尋流量為零，AI 多模態引用機會喪失</p>
+      </div>
+    </div>
+    <div class="problem-item">
+      <div class="problem-icon">🔗</div>
+      <div>
+        <h4>無 Open Graph</h4>
+        <p>分享到 LINE / FB 顯示空白，社群流量大量流失</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">📅 三週行動計畫</h2>
+  <div class="content-card">
+    <h3 class="sub-title">第一週：技術基礎（最優先）</h3>
+    <table>
+      <tr><th>網站</th><th>任務</th><th>預期效果</th></tr>
+      <tr><td>兩站</td><td>設定 Meta Description</td><td>CTR 提升 15-30%</td></tr>
+      <tr><td>yardley.tw</td><td>加 Open Graph 標籤</td><td>社群分享有預覽圖</td></tr>
+      <tr><td>兩站</td><td>圖片補 Alt 屬性</td><td>圖片搜尋流量</td></tr>
+      <tr><td>shengtingbio.com</td><td>安裝 Yoast + Article Schema</td><td>AIO 引用基礎建立</td></tr>
+    </table>
+
+    <h3 class="sub-title">第二週：AIO 優化</h3>
+    <table>
+      <tr><th>網站</th><th>任務</th><th>預期效果</th></tr>
+      <tr><td>yardley.tw</td><td>Organization + Product Schema</td><td>富摘要出現，AI 認識品牌</td></tr>
+      <tr><td>shengtingbio.com</td><td>FAQ Schema（前 10 篇）</td><td>AIO 引用機率 +60%</td></tr>
+      <tr><td>shengtingbio.com</td><td>文章開頭加一句話摘要</td><td>AI 直接引用機率提升</td></tr>
+      <tr><td>shengtingbio.com</td><td>加入學術參考文獻</td><td>E-E-A-T 分數提升</td></tr>
+    </table>
+
+    <h3 class="sub-title">第三週：長期建設</h3>
+    <table>
+      <tr><th>網站</th><th>任務</th><th>預期效果</th></tr>
+      <tr><td>yardley.tw</td><td>品牌 About 頁面</td><td>品牌 Entity 建立</td></tr>
+      <tr><td>兩站</td><td>互相連結</td><td>SEO 權重互傳</td></tr>
+      <tr><td>yardley.tw</td><td>Google Business Profile</td><td>Local SEO + 可信度</td></tr>
+      <tr><td>shengtingbio.com</td><td>作者頁面 + Person Schema</td><td>E-E-A-T 大幅提升</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- TOOLS PAGE -->
+<div class="page" id="page-tools">
+  <h2 class="section-title">🔧 驗證工具清單</h2>
+  <p>每個任務完成後，使用以下工具確認是否生效。</p>
+  <div class="tool-list">
+    <div class="tool-item">
+      <a href="https://search.google.com/test/rich-results" target="_blank">Google Rich Results Test</a>
+      <p>驗證 Schema Markup 是否正確，查看富摘要預覽</p>
+    </div>
+    <div class="tool-item">
+      <a href="https://metatags.io" target="_blank">metatags.io</a>
+      <p>預覽 Meta Description 和 OG 標籤在 Google / FB / LINE 的顯示效果</p>
+    </div>
+    <div class="tool-item">
+      <a href="https://validator.schema.org/" target="_blank">Schema Markup Validator</a>
+      <p>詳細驗證 JSON-LD 語法是否正確，無錯誤</p>
+    </div>
+    <div class="tool-item">
+      <a href="https://pagespeed.web.dev" target="_blank">PageSpeed Insights</a>
+      <p>測試網頁載入速度，Core Web Vitals 分數</p>
+    </div>
+    <div class="tool-item">
+      <a href="https://search.google.com/search-console" target="_blank">Google Search Console</a>
+      <p>追蹤整體 SEO 表現、覆蓋率、點擊率</p>
+    </div>
+    <div class="tool-item">
+      <a href="https://www.facebook.com/sharing/debugger/" target="_blank">Facebook Sharing Debugger</a>
+      <p>測試 Open Graph 標籤，確認 FB / LINE 分享預覽</p>
+    </div>
+    <div class="tool-item">
+      <a href="https://www.seoptimer.com/alt-tag-checker" target="_blank">SEOptimer Alt Tag Checker</a>
+      <p>批次檢查網頁中缺少 Alt 屬性的圖片數量</p>
+    </div>
+    <div class="tool-item">
+      <a href="https://perplexity.ai" target="_blank">Perplexity AI</a>
+      <p>用問題測試文章是否被 AI 搜尋引擎引用</p>
+    </div>
+  </div>
+</div>
+
+<!-- Y-01 META DESCRIPTION -->
+<div class="page" id="page-y01">
+  <h2 class="section-title">📄 Y-01/02｜Meta Description 設定 <span class="priority priority-high">最高優先</span></h2>
+  <div class="info-box">平台：Shopline ｜ 預計時間：30-60 分鐘 ｜ 難度：⭐</div>
+
+  <div class="content-card">
+    <p><strong>為什麼要做？</strong><br>Meta Description 是 Google 搜尋結果標題下方的灰色說明文字。設定後點擊率提升 15-30%，也是 AI 抓取頁面摘要的第一來源。</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>登入 Shopline 後台</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <code>https://admin.shoplineapp.com/</code></li>
+        <li>輸入帳號密碼登入</li>
+        <li>確認進入苼莛國際生技的後台</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 確認點</strong>左側選單可以看到「行銷」或「網路商店」選項</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>設定首頁 Meta Description（Y-01）</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>點選 <strong>「網路商店」→「偏好設定」</strong></li>
+        <li>找到 <strong>「SEO 設定」</strong> 區塊</li>
+        <li>填入以下內容：</li>
+      </ol>
+      <p><strong>首頁 Title：</strong></p>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>苼莛國際生技｜天然安全保健食品專家</pre>
+      <p><strong>首頁 Meta Description：</strong></p>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>苼莛國際生技提供天然安全的保健食品，融合全球頂尖技術與優質原料，涵蓋美顏、代謝、腸胃、女性健康等系列。立即探索最適合您的健康解方。</pre>
+      <ol start="4"><li>點選「儲存」</li></ol>
+      <div class="verify-box"><strong>✅ 驗證方法</strong>前往 <code>https://metatags.io/?url=https://www.yardley.tw/</code> 確認 Description 有正確顯示</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">3</div><h3>設定分類頁 Meta Description（Y-02）</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「商品」→「商品分類」</strong></li>
+        <li>依序點選每個分類，填入以下描述：</li>
+      </ol>
+      <table>
+        <tr><th>分類</th><th>Meta Description（直接複製）</th></tr>
+        <tr><td>美顏系列</td><td>苼莛美顏保健系列，以穀胱甘肽、膠原蛋白等天然成分，從內而外提升肌膚亮白與彈潤。科學配方，安全有效。</td></tr>
+        <tr><td>纖盈管理</td><td>苼莛纖盈系列結合藤黃果、消化酵素等成分，科學輔助代謝管理。配合均衡飲食，打造健康體態。</td></tr>
+        <tr><td>腸胃保健</td><td>苼莛腸胃系列以益生菌、消化酵素、膳食纖維為核心，調節腸道菌群，改善消化問題。</td></tr>
+        <tr><td>女性健康</td><td>苼莛女性健康系列以大豆異黃酮、月見草油等天然成分，呵護女性荷爾蒙平衡與生理健康。</td></tr>
+        <tr><td>眼部保養</td><td>苼莛眼部保健系列以蝦紅素、葉黃素為核心，科學防護藍光傷害，改善乾眼與視力疲勞。</td></tr>
+      </table>
+      <div class="verify-box"><strong>✅ 驗證方法</strong>每個分類完成後：<code>https://metatags.io/?url=https://www.yardley.tw/collections/[分類名稱]</code></div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-y01" onclick="markDone('y01', this)">✓ 標記 Y-01/02 完成</button>
+</div>
+
+<!-- Y-03 OPEN GRAPH -->
+<div class="page" id="page-y03">
+  <h2 class="section-title">🔗 Y-03｜Open Graph 標籤設定 <span class="priority priority-high">最高優先</span></h2>
+  <div class="info-box">平台：Shopline ｜ 預計時間：20 分鐘 ｜ 難度：⭐⭐</div>
+
+  <div class="content-card">
+    <p><strong>為什麼要做？</strong><br>Open Graph 決定網址被分享到 Facebook、LINE 時顯示的預覽圖、標題和描述。沒設定就只顯示空白。</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>先確認目前狀況</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <a href="https://www.facebook.com/sharing/debugger/" target="_blank">Facebook 分享偵錯工具</a></li>
+        <li>輸入 <code>https://www.yardley.tw/</code></li>
+        <li>點選「偵錯」</li>
+        <li>查看 <code>og:title</code>、<code>og:description</code>、<code>og:image</code> 是否有值</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 如果三個欄位都有值</strong>→ Shopline 已自動設定，跳到 Step 3 確認圖片<br><strong>如果欄位是空的</strong>→ 繼續 Step 2</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>準備 OG 圖片</h3></div>
+    <div class="step-content">
+      <p>製作一張品牌主視覺圖，規格：</p>
+      <table>
+        <tr><th>規格</th><th>建議值</th></tr>
+        <tr><td>尺寸</td><td>1200 x 630 像素</td></tr>
+        <tr><td>格式</td><td>JPG 或 PNG</td></tr>
+        <tr><td>大小</td><td>&lt; 300KB</td></tr>
+        <tr><td>內容</td><td>品牌 Logo + 主視覺 + 品牌名稱文字</td></tr>
+      </table>
+      <p>在 Shopline 後台 → <strong>「網路商店」→「偏好設定」</strong> → 找到「社交分享圖片」上傳</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">3</div><h3>手動加入 OG 標籤（如後台沒有此選項）</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「網路商店」→「主題」→「編輯 HTML/CSS」</strong></li>
+        <li>找到 <code>layout/theme.liquid</code></li>
+        <li>在 <code>&lt;/head&gt;</code> 之前貼入：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;!-- Open Graph Tags --&gt;
+&lt;meta property="og:type" content="website" /&gt;
+&lt;meta property="og:site_name" content="苼莛國際生技" /&gt;
+&lt;meta property="og:title" content="{{ page_title }} | 苼莛國際生技" /&gt;
+&lt;meta property="og:description" content="{% if page.description != blank %}{{ page.description | strip_html | truncatewords: 30 }}{% else %}苼莛國際生技提供天然安全的保健食品，融合全球頂尖技術與優質原料。{% endif %}" /&gt;
+&lt;meta property="og:url" content="{{ canonical_url }}" /&gt;
+&lt;meta property="og:image" content="https://www.yardley.tw/YOUR-BRAND-IMAGE.jpg" /&gt;
+&lt;meta property="og:image:width" content="1200" /&gt;
+&lt;meta property="og:image:height" content="630" /&gt;</pre>
+      <div class="warning-box">⚠️ 將 <code>YOUR-BRAND-IMAGE.jpg</code> 換成您實際上傳到 Shopline 的圖片路徑</div>
+      <div class="verify-box"><strong>✅ 驗證方法</strong>回到 Facebook 偵錯工具 → 點「再次抓取」→ 確認三個 og: 欄位都有正確值</div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-y03" onclick="markDone('y03', this)">✓ 標記 Y-03 完成</button>
+</div>
+
+<!-- Y-04 IMAGE ALT -->
+<div class="page" id="page-y04">
+  <h2 class="section-title">🖼️ Y-04｜圖片 Alt 屬性設定 <span class="priority priority-high">最高優先</span></h2>
+  <div class="info-box">平台：Shopline ｜ 預計時間：1-2 小時 ｜ 難度：⭐</div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>設定產品圖片 Alt</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「商品」→「商品管理」</strong></li>
+        <li>點選商品 → 找到圖片區域</li>
+        <li>滑鼠移到圖片上 → 點「編輯 Alt」</li>
+        <li>填入描述（格式如下）</li>
+      </ol>
+      <p><strong>Alt 格式：</strong><code>苼莛 [產品名稱] [主要功效] [劑型]</code></p>
+      <table>
+        <tr><th>產品</th><th>建議 Alt 文字</th></tr>
+        <tr><td>穀胱甘肽美白膠囊</td><td>苼莛穀胱甘肽美白膠囊 天然美白抗氧化 保健食品</td></tr>
+        <tr><td>蝦紅素護眼軟膠囊</td><td>苼莛蝦紅素護眼軟膠囊 改善乾眼視力疲勞 天然保健</td></tr>
+        <tr><td>益生菌腸胃膠囊</td><td>苼莛益生菌腸胃調節膠囊 調整腸道菌群 台灣製造</td></tr>
+        <tr><td>大豆異黃酮膠囊</td><td>苼莛大豆異黃酮女性荷爾蒙膠囊 天然植物雌激素</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>驗證 Alt 是否生效</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <a href="https://www.seoptimer.com/alt-tag-checker" target="_blank">seoptimer Alt Tag Checker</a></li>
+        <li>輸入 <code>https://www.yardley.tw/</code></li>
+        <li>查看 Missing Alt Tags 數量應趨近於 0</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 合格標準</strong>Missing Alt Tags &lt; 5</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">3</div><h3>首頁 Banner 圖片</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「網路商店」→「主題」→「自訂」</strong></li>
+        <li>找到首頁 Banner 區塊 → 找「Alt text」欄位</li>
+        <li>填入：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>苼莛國際生技 天然安全保健食品 品牌主視覺</pre>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-y04" onclick="markDone('y04', this)">✓ 標記 Y-04 完成</button>
+</div>
+
+<!-- Y-05 H1 -->
+<div class="page" id="page-y05">
+  <h2 class="section-title">📝 Y-05｜H1 結構確認與修正 <span class="priority priority-high">最高優先</span></h2>
+  <div class="info-box">平台：Shopline ｜ 預計時間：30 分鐘 ｜ 難度：⭐⭐</div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>用瀏覽器確認目前 H1 狀況</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <code>https://www.yardley.tw/</code></li>
+        <li>按 <code>F12</code>（Windows）或 <code>Command+Option+I</code>（Mac）</li>
+        <li>點選「Console」標籤</li>
+        <li>貼入以下程式碼並按 Enter：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>const h1s = document.querySelectorAll('h1');
+console.log(`找到 ${h1s.length} 個 H1：`);
+h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</pre>
+      <div class="verify-box"><strong>✅ 結果判讀</strong><br>
+        結果是 1 → 確認文字是否含關鍵字<br>
+        結果是 0 → 需新增 H1<br>
+        結果是 2+ → 有多個 H1，需修正
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>各頁面 H1 應該是什麼</h3></div>
+    <div class="step-content">
+      <table>
+        <tr><th>頁面</th><th>正確的 H1</th></tr>
+        <tr><td>首頁</td><td>苼莛國際生技 — 天然安全保健食品</td></tr>
+        <tr><td>美顏系列</td><td>美顏保健食品系列 — 由內而外的自然美白</td></tr>
+        <tr><td>纖盈管理</td><td>纖盈管理系列 — 科學輔助健康代謝</td></tr>
+        <tr><td>腸胃保健</td><td>腸胃保健系列 — 益生菌與消化酵素</td></tr>
+        <tr><td>個別產品</td><td>產品完整名稱</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">3</div><h3>在 Shopline 修正 H1</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「網路商店」→「主題」→「編輯 HTML/CSS」</strong></li>
+        <li>找到 <code>sections/index-banner.liquid</code></li>
+        <li>將 <code>&lt;h2&gt;</code> 改為 <code>&lt;h1&gt;</code></li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;!-- 修改前 --&gt;
+&lt;h2 class="banner-title"&gt;苼莛國際生技&lt;/h2&gt;
+
+&lt;!-- 修改後 --&gt;
+&lt;h1 class="banner-title"&gt;苼莛國際生技&lt;/h1&gt;</pre>
+      <div class="verify-box"><strong>✅ 確認</strong>修改後重新執行 Step 1 的 JavaScript，確認只有 1 個 H1</div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-y05" onclick="markDone('y05', this)">✓ 標記 Y-05 完成</button>
+</div>
+
+<!-- Y-06 SCHEMA -->
+<div class="page" id="page-y06">
+  <h2 class="section-title">🗂️ Y-06/07/08｜Schema Markup 設定 <span class="priority priority-high">最高優先</span></h2>
+  <div class="info-box">平台：Shopline ｜ 預計時間：1-2 小時 ｜ 難度：⭐⭐⭐</div>
+
+  <div class="content-card">
+    <p><strong>為什麼最重要？</strong>Schema 是給 AI 看的「說明書」，沒有 Schema → AI 幾乎不引用您的網站。</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>Y-06：Organization Schema（品牌身份）</h3></div>
+    <div class="step-content">
+      <p>前往 <strong>「網路商店」→「主題」→「編輯 HTML/CSS」</strong> → <code>layout/theme.liquid</code>，在 <code>&lt;/head&gt;</code> 前貼入：</p>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "苼莛國際生技有限公司",
+  "alternateName": ["苼莛生技", "Yardley International Biotech"],
+  "url": "https://www.yardley.tw",
+  "description": "苼莛國際生技致力提供天然安全保健食品，融合全球頂尖技術與原料，涵蓋美顏、代謝、腸胃、女性健康等系列。",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "02-27218527",
+    "contactType": "customer service",
+    "areaServed": "TW",
+    "availableLanguage": "Chinese"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "台北市",
+    "addressCountry": "TW"
+  }
+}
+&lt;/script&gt;</pre>
+      <div class="verify-box"><strong>✅ 驗證</strong>前往 <a href="https://validator.schema.org/" target="_blank">validator.schema.org</a> 輸入 yardley.tw，確認看到 Organization</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>Y-07：Product Schema（自動套用所有產品）</h3></div>
+    <div class="step-content">
+      <p>前往 <code>templates/product.liquid</code>，在檔案最底部加入：</p>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "description": "{{ product.description | strip_html | truncatewords: 50 | escape }}",
+  "image": [{% for image in product.images %}"{{ image.src | img_url: '1200x' }}"{% unless forloop.last %},{% endunless %}{% endfor %}],
+  "brand": { "@type": "Brand", "name": "苼莛國際生技" },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "TWD",
+    "price": "{{ product.price | money_without_currency | remove: ',' }}",
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "url": "{{ shop.url }}{{ product.url }}"
+  }
+}
+&lt;/script&gt;</pre>
+      <div class="verify-box"><strong>✅ 驗證</strong>前往 <a href="https://search.google.com/test/rich-results" target="_blank">Google Rich Results Test</a> 輸入任意產品頁，確認看到 Product 富摘要</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">3</div><h3>Y-08：BreadcrumbList Schema（麵包屑）</h3></div>
+    <div class="step-content">
+      <p>在 <code>templates/product.liquid</code> 的 Product Schema 下方繼續加入：</p>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首頁", "item": "{{ shop.url }}" },
+    { "@type": "ListItem", "position": 2, "name": "全部商品", "item": "{{ shop.url }}/collections/all" },
+    { "@type": "ListItem", "position": 3, "name": "{{ product.title }}", "item": "{{ shop.url }}{{ product.url }}" }
+  ]
+}
+&lt;/script&gt;</pre>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-y06" onclick="markDone('y06', this)">✓ 標記 Y-06/07/08 完成</button>
+</div>
+
+<!-- S-01 YOAST -->
+<div class="page" id="page-s01">
+  <h2 class="section-title">🔌 S-01｜安裝 Yoast SEO 外掛 <span class="priority priority-high">先做這步！</span></h2>
+  <div class="info-box">平台：WordPress ｜ 預計時間：15 分鐘 ｜ 難度：⭐</div>
+
+  <div class="content-card">
+    <p><strong>為什麼先裝 Yoast？</strong>後面 S-02 到 S-05 的所有設定都依賴 Yoast SEO 外掛。請先完成這步再繼續。</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>安裝外掛</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <code>https://shengtingbio.com/wp-admin/</code> 登入</li>
+        <li>點選 <strong>「外掛」→「安裝外掛」</strong></li>
+        <li>搜尋 <code>Yoast SEO</code></li>
+        <li>找到 Yoast SEO（作者：Team Yoast，1000萬+ 安裝）</li>
+        <li>點「立即安裝」→「啟用」</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 確認</strong>左側選單出現「SEO」的新選項</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>完成初始設定精靈</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>點選「開始設定精靈」</li>
+        <li>網站類型選「部落格」</li>
+        <li>組織名稱填：<code>苼莛生技雜誌</code></li>
+        <li>上傳 Logo（512x512 px PNG）</li>
+        <li>填入 Facebook / Instagram 帳號 URL</li>
+        <li>完成設定精靈</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">3</div><h3>啟用 Schema 功能</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「SEO」→「搜尋外觀」→「一般」</strong></li>
+        <li>找到「知識圖譜與 Schema.org」</li>
+        <li>選擇類型：<strong>「組織」（Organization）</strong></li>
+        <li>填入組織名稱：<code>苼莛生技雜誌</code></li>
+        <li>點「儲存設定」</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 驗證</strong>前往 <a href="https://validator.schema.org/" target="_blank">validator.schema.org</a>，輸入 shengtingbio.com，確認看到 WebSite + Organization</div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s01" onclick="markDone('s01', this)">✓ 標記 S-01 完成</button>
+</div>
+
+<!-- S-02 META -->
+<div class="page" id="page-s02">
+  <h2 class="section-title">📄 S-02/03｜Meta Description 設定 <span class="priority priority-high">最高優先</span></h2>
+  <div class="info-box">平台：WordPress + Yoast ｜ 預計時間：1-2 小時 ｜ 難度：⭐</div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>設定首頁 Meta Description（S-02）</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「頁面」→「首頁」→「編輯」</strong></li>
+        <li>滑到頁面底部，點選 <strong>Yoast SEO</strong> 面板的「SEO」標籤</li>
+        <li>在「Meta 描述」欄位填入：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>苼莛生技雜誌｜深度健康知識平台，涵蓋代謝管理、美白透亮、抗老逆齡、腸胃保健、女性健康等280+篇專業文章，幫助您做出最聰明的保健決策。</pre>
+      <ol start="4"><li>點「更新」儲存</li></ol>
+      <div class="verify-box"><strong>✅ 驗證</strong>前往 <a href="https://metatags.io/?url=https://shengtingbio.com/" target="_blank">metatags.io</a> 確認 Description 顯示正確</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>文章 Meta Description 批次設定（S-03）</h3></div>
+    <div class="step-content">
+      <p>每篇文章的 Meta Description 格式：<strong>核心答案 + 關鍵數據 + 讀者可獲得什麼</strong></p>
+      <table>
+        <tr><th>文章標題</th><th>Meta Description 範例</th></tr>
+        <tr><td>魚油劑量研究</td><td>2026最新研究揭露：魚油要每日攝取2-3克EPA+DHA才有效，一般市售每粒500mg遠遠不夠。本文解析正確劑量與服用時機。</td></tr>
+        <tr><td>藤黃果腰圍研究</td><td>權威研究實證：補充藤黃果12週後腰圍平均減少4.16公分。了解科學機制、正確劑量與注意事項。</td></tr>
+        <tr><td>蝦紅素護眼</td><td>科學研究發現蝦紅素能關閉眼部發炎，6大護眼機制全解析。了解如何改善乾眼及每日建議攝取量。</td></tr>
+      </table>
+      <p><strong>批次流程：</strong>每天 10-15 篇，共分 10 天完成。優先從「代謝管理」（124篇）開始。</p>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s02" onclick="markDone('s02', this)">✓ 標記 S-02/03 完成</button>
+</div>
+
+<!-- S-04 H1 -->
+<div class="page" id="page-s04">
+  <h2 class="section-title">📝 S-04｜修正文章 H1 層級 <span class="priority priority-high">最高優先</span></h2>
+  <div class="info-box">平台：WordPress ｜ 預計時間：依文章數量 ｜ 難度：⭐⭐</div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>確認目前狀況</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>點選任意文章進入文章頁面</li>
+        <li>按 <code>F12</code> 開發者工具 → Console</li>
+        <li>貼入程式碼確認：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>['h1','h2','h3'].forEach(tag => {
+  const els = document.querySelectorAll(tag);
+  if(els.length > 0) {
+    console.log(`=== ${tag.toUpperCase()} (${els.length}個) ===`);
+    els.forEach((el,i) => console.log(`  [${i+1}] "${el.textContent.trim().substring(0,60)}"`));
+  }
+});</pre>
+      <div class="verify-box"><strong>✅ 正確結構應為</strong><br>H1 (1個) = 文章標題<br>H2 (3-5個) = 各章節標題<br>H3 = 子章節</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>修正主題模板（一次修好全部文章）</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「外觀」→「主題編輯器」</strong></li>
+        <li>找到 <code>single.php</code>（文章頁模板）</li>
+        <li>搜尋文章標題的 HTML</li>
+        <li>將 <code>h2</code> 改為 <code>h1</code>：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;!-- 修改前 --&gt;
+&lt;h2 class="entry-title"&gt;&lt;?php the_title(); ?&gt;&lt;/h2&gt;
+
+&lt;!-- 修改後 --&gt;
+&lt;h1 class="entry-title"&gt;&lt;?php the_title(); ?&gt;&lt;/h1&gt;</pre>
+      <div class="warning-box">⚠️ 修改主題文件前請先備份！前往「外觀」→「主題」→ 備份主題</div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s04" onclick="markDone('s04', this)">✓ 標記 S-04 完成</button>
+</div>
+
+<!-- S-05 ARTICLE SCHEMA -->
+<div class="page" id="page-s05">
+  <h2 class="section-title">🗂️ S-05｜Article Schema <span class="priority priority-high">AIO 關鍵</span></h2>
+  <div class="info-box">平台：WordPress + Yoast ｜ 預計時間：20 分鐘 ｜ 難度：⭐⭐</div>
+
+  <div class="content-card">
+    <p><strong>這是 AIO 最關鍵的步驟。</strong>Article Schema 告訴 AI：這篇文章是誰寫的、何時發布、可信度如何。沒有這個，AI 引用機率降低 80%。</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>在 Yoast 設定文章 Schema 類型</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「SEO」→「搜尋外觀」→「內容類型」</strong></li>
+        <li>找到「文章」（Posts）</li>
+        <li>Schema 區塊 → 「這種內容類型的結構描述類型」→ 選 <strong>「文章」（Article）</strong></li>
+        <li>儲存設定</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 驗證</strong>前往 <a href="https://search.google.com/test/rich-results" target="_blank">Google Rich Results Test</a>，輸入任意文章 URL，確認看到 Article 類型</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>完善作者資訊（AI 引用可信度）</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「使用者」→ 點選作者帳號「編輯」</strong></li>
+        <li>填入「自我介紹」：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>苼莛生技雜誌健康編輯。專注於整合國際保健食品學術研究，將複雜的醫學知識轉化為大眾可理解的實用衛教內容。持續追蹤 PubMed、Cochrane Library 等資料庫的最新研究，確保文章內容符合當前科學共識。每篇文章均附有學術引用來源。</pre>
+      <ol start="3">
+        <li>上傳大頭照（200x200 px 以上）</li>
+        <li>儲存</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">3</div><h3>確認所有文章有特色圖片</h3></div>
+    <div class="step-content">
+      <p>Article Schema 的圖片欄位來自文章「特色圖片」。沒有特色圖片 → Schema 無圖片 → AI 引用機率降低。</p>
+      <ol>
+        <li>前往 <strong>「文章」→「全部文章」</strong></li>
+        <li>確認每篇文章縮圖欄都有圖片</li>
+        <li>沒有的，點「編輯」→ 右側「特色圖片」→ 上傳（建議 1200x630 px）</li>
+      </ol>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s05" onclick="markDone('s05', this)">✓ 標記 S-05 完成</button>
+</div>
+
+<!-- S-06 AIO SUMMARY -->
+<div class="page" id="page-s06">
+  <h2 class="section-title">💡 S-06｜文章「一句話摘要」AIO 優化 <span class="priority priority-medium">高優先</span></h2>
+  <div class="info-box">平台：WordPress ｜ 每篇 5-10 分鐘 ｜ 難度：⭐</div>
+
+  <div class="content-card">
+    <p><strong>AI 引用的關鍵習慣：</strong>Google AI Overview、Perplexity、ChatGPT 優先引用「開頭就直接回答問題」的文章。</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>摘要撰寫格式</h3></div>
+    <div class="step-content">
+      <p><strong>格式：</strong><code>核心答案 + 關鍵數據或機制 + 適合誰</code></p>
+      <table>
+        <tr><th>類型</th><th>範例</th></tr>
+        <tr><td>❌ 不好</td><td>「魚油一直是保健食品市場的熱門選擇，許多人每天勤奮補充，卻遲遲感受不到效果...」</td></tr>
+        <tr><td>✅ 好</td><td>「核心答案：魚油沒效果的主因是劑量不足——每日需攝取 2-3 克 EPA+DHA，一般市售每粒只含 500mg，需每日服用 4-6 粒。2026年《Nutrients》期刊研究確認，低劑量補充與安慰劑無顯著差異。」</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>在 WordPress 加入摘要段落</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>開啟文章編輯模式</li>
+        <li>在文章標題和第一段之間，插入一個新段落區塊</li>
+        <li>用<strong>粗體</strong>標示核心答案（第一句話）</li>
+        <li>確保文章前 100 字內包含核心答案</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 測試方法</strong>在 Perplexity.ai 輸入文章主題的問題，看是否引用了您的文章</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">3</div><h3>優先處理的 10 篇文章</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>魚油劑量研究</li>
+        <li>藤黃果代謝研究</li>
+        <li>蝦紅素護眼文章</li>
+        <li>大豆異黃酮女性健康</li>
+        <li>益生菌腸胃保健</li>
+        <li>穀胱甘肽美白</li>
+        <li>膠原蛋白抗老</li>
+        <li>女性婦科健康</li>
+        <li>維生素D相關</li>
+        <li>抗氧化相關</li>
+      </ol>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s06" onclick="markDone('s06', this)">✓ 標記 S-06 完成</button>
+</div>
+
+<!-- S-07 FAQ SCHEMA -->
+<div class="page" id="page-s07">
+  <h2 class="section-title">❓ S-07｜FAQ Schema 設定 <span class="priority priority-medium">高優先</span></h2>
+  <div class="info-box">平台：WordPress ｜ 每篇 15-20 分鐘 ｜ 難度：⭐⭐</div>
+
+  <div class="content-card">
+    <p><strong>FAQ Schema 是 AIO 最強武器。</strong>問答格式完全符合 AI 的搜尋模式，Google 也可能顯示「人們常問」富摘要，大幅提升曝光。</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>在文章底部加入 FAQ（手動 HTML）</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>開啟文章編輯模式</li>
+        <li>在文章最底部加入「自訂 HTML」區塊</li>
+        <li>貼入以下模板（替換問答內容）：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;!-- 讀者可見的問答 --&gt;
+&lt;div class="faq-section"&gt;
+  &lt;h2&gt;常見問題&lt;/h2&gt;
+  &lt;div class="faq-item"&gt;
+    &lt;h3&gt;【問題一】&lt;/h3&gt;
+    &lt;p&gt;【答案一，40-300字，要完整回答】&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="faq-item"&gt;
+    &lt;h3&gt;【問題二】&lt;/h3&gt;
+    &lt;p&gt;【答案二】&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- AI 和搜尋引擎看的 Schema --&gt;
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "【問題一】",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "【答案一的完整文字】"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "【問題二】",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "【答案二的完整文字】"
+      }
+    }
+  ]
+}
+&lt;/script&gt;</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>各類文章的 FAQ 問題方向</h3></div>
+    <div class="step-content">
+      <table>
+        <tr><th>文章類型</th><th>建議問題方向</th></tr>
+        <tr><td>成分研究型</td><td>每天吃多少？何時服用？副作用？要吃多久？誰不適合？</td></tr>
+        <tr><td>疾病預防型</td><td>誰需要補充？可從食物攝取嗎？和醫療有衝突嗎？</td></tr>
+        <tr><td>比較分析型</td><td>A 和 B 哪個好？便宜的有效嗎？如何挑選？</td></tr>
+      </table>
+      <div class="verify-box"><strong>✅ 驗證</strong>前往 <a href="https://search.google.com/test/rich-results" target="_blank">Google Rich Results Test</a>，確認看到 FAQ 富摘要預覽</div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s07" onclick="markDone('s07', this)">✓ 標記 S-07 完成</button>
+</div>
+
+<!-- S-08 REFERENCES -->
+<div class="page" id="page-s08">
+  <h2 class="section-title">📚 S-08｜加入學術參考文獻 <span class="priority priority-medium">高優先</span></h2>
+  <div class="info-box">平台：WordPress ｜ 每篇 20-30 分鐘 ｜ 難度：⭐⭐</div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>找學術來源</h3></div>
+    <div class="step-content">
+      <table>
+        <tr><th>資料庫</th><th>網址</th><th>特色</th></tr>
+        <tr><td>PubMed</td><td><a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">pubmed.ncbi.nlm.nih.gov</a></td><td>全球最大醫學論文庫，免費</td></tr>
+        <tr><td>Google Scholar</td><td><a href="https://scholar.google.com" target="_blank">scholar.google.com</a></td><td>搜尋方便，有中文界面</td></tr>
+      </table>
+      <p><strong>搜尋關鍵字範例：</strong></p>
+      <table>
+        <tr><th>主題</th><th>PubMed 搜尋詞</th></tr>
+        <tr><td>魚油</td><td>fish oil omega-3 clinical trial meta-analysis</td></tr>
+        <tr><td>藤黃果</td><td>Garcinia cambogia weight loss randomized</td></tr>
+        <tr><td>蝦紅素</td><td>astaxanthin eye health dry eye clinical</td></tr>
+        <tr><td>益生菌</td><td>probiotics gut microbiome randomized controlled</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>在文章加入參考文獻區塊</h3></div>
+    <div class="step-content">
+      <p>在文章最底部（FAQ 之後）加入自訂 HTML：</p>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;div style="border-top:2px solid #e0e0e0;margin-top:40px;padding-top:20px;"&gt;
+  &lt;h2&gt;參考文獻&lt;/h2&gt;
+  &lt;p style="font-size:13px;color:#666;"&gt;本文依據以下學術研究整理，資訊僅供參考，不代替醫療建議。&lt;/p&gt;
+  &lt;ol style="font-size:13px;color:#555;line-height:2;"&gt;
+    &lt;li&gt;
+      Smith, J., et al. (2026). 論文標題. &lt;em&gt;期刊名稱&lt;/em&gt;, 卷(期), 頁碼.
+      &lt;a href="https://doi.org/XXXXXXXX" target="_blank" rel="noopener"&gt;查看原文 →&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;!-- 繼續加入其他文獻 --&gt;
+  &lt;/ol&gt;
+  &lt;p style="font-size:12px;color:#999;margin-top:16px;"&gt;
+    ⚕️ 免責聲明：本文僅供衛教參考，不能取代專業醫療建議。請諮詢合格醫師或藥師。
+  &lt;/p&gt;
+&lt;/div&gt;</pre>
+      <div class="verify-box"><strong>✅ 確認</strong>所有文獻連結可以正常開啟（不是 404），數據與文章描述一致</div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s08" onclick="markDone('s08', this)">✓ 標記 S-08 完成</button>
+</div>
+
+<!-- S-09 URL -->
+<div class="page" id="page-s09">
+  <h2 class="section-title">🔗 S-09｜URL 英文 Slug 優化 <span class="priority priority-low">中優先</span></h2>
+  <div class="info-box">平台：WordPress ｜ 預計時間：1-2 小時 ｜ 難度：⭐⭐⭐</div>
+
+  <div class="danger-box">⚠️ <strong>高風險操作！</strong>修改 URL 必須同時設定 301 轉址，否則會斷掉既有連結。建議新文章從一開始就用英文，舊文章謹慎評估後再改。</div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>新文章：發布前設定英文 Slug</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>在 Gutenberg 編輯器右側的「文章」面板</li>
+        <li>找到「永久連結」區塊</li>
+        <li>清空中文，填入英文 slug</li>
+      </ol>
+      <table>
+        <tr><th>文章標題</th><th>建議英文 Slug</th></tr>
+        <tr><td>每天吃魚油卻沒感覺？劑量才是關鍵</td><td>fish-oil-dosage-guide</td></tr>
+        <tr><td>補充藤黃果後腰圍平均少4.16公分</td><td>garcinia-cambogia-waist-reduction</td></tr>
+        <tr><td>蝦紅素能關掉眼睛發炎開關</td><td>astaxanthin-eye-inflammation-benefits</td></tr>
+        <tr><td>大豆異黃酮養護荷爾蒙抗老</td><td>soy-isoflavones-hormone-anti-aging</td></tr>
+      </table>
+      <p><strong>Slug 規則：</strong>全小寫 + 連字號（-）分隔 + 3-6 個單字 + 包含核心關鍵字</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>舊文章：安裝 Redirection 外掛設定 301</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>安裝外掛：搜尋「<strong>Redirection</strong>」（作者：John Godley）</li>
+        <li>前往 <strong>「工具」→「Redirection」</strong></li>
+        <li>勾選「監控 WordPress 文章 URL 變更」</li>
+        <li>新增轉址：來源（舊中文URL）→ 目標（新英文URL）</li>
+        <li>點「新增轉址」</li>
+        <li>再去文章編輯頁修改 Slug</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 驗證</strong>用瀏覽器訪問舊 URL，確認自動轉址到新 URL（1 秒內跳轉）</div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s09" onclick="markDone('s09', this)">✓ 標記 S-09 完成</button>
+</div>
+
+<!-- S-10 AUTHOR -->
+<div class="page" id="page-s10">
+  <h2 class="section-title">👤 S-10｜作者頁面 + Person Schema <span class="priority priority-low">中優先</span></h2>
+  <div class="info-box">平台：WordPress ｜ 預計時間：2-3 小時 ｜ 難度：⭐⭐</div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>完善使用者個人資料</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「使用者」→「全部使用者」→ 點選作者帳號「編輯」</strong></li>
+        <li>填入所有欄位（顯示名稱、自我介紹）</li>
+        <li>上傳真實大頭照（200x200 px 以上）</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>建立關於我們頁面</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「頁面」→「新增頁面」</strong></li>
+        <li>標題：<code>關於苼莛生技雜誌</code>，Slug：<code>about</code></li>
+        <li>填入品牌介紹、編輯原則、聯絡資訊</li>
+        <li>加入以下 Person Schema（自訂 HTML 區塊）：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "【作者姓名】",
+  "jobTitle": "健康編輯",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "苼莛生技雜誌",
+    "url": "https://shengtingbio.com"
+  },
+  "description": "苼莛生技雜誌健康編輯，專注整合國際保健食品學術研究，追蹤 PubMed 最新臨床試驗成果。",
+  "url": "https://shengtingbio.com/about/",
+  "knowsAbout": ["保健食品", "營養學", "女性健康", "代謝管理", "抗衰老"]
+}
+&lt;/script&gt;</pre>
+      <div class="verify-box"><strong>✅ 驗證</strong>前往 <a href="https://validator.schema.org/" target="_blank">validator.schema.org</a>，輸入 /about/ 頁面，確認看到 Person 類型</div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s10" onclick="markDone('s10', this)">✓ 標記 S-10 完成</button>
+</div>
+
+<!-- S-11 IMAGE ALT -->
+<div class="page" id="page-s11">
+  <h2 class="section-title">🖼️ S-11｜圖片 Alt 屬性補齊 <span class="priority priority-low">中優先</span></h2>
+  <div class="info-box">平台：WordPress ｜ 每篇約 10 分鐘 ｜ 難度：⭐</div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>在媒體庫批次設定 Alt</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「媒體」→「媒體庫」</strong> → 切換「列表模式」</li>
+        <li>點選圖片 → 右側面板找「替代文字」欄位</li>
+        <li>填入描述（格式：<code>[成分名稱] [功效] 保健食品說明圖</code>）</li>
+        <li>點「儲存」</li>
+      </ol>
+      <table>
+        <tr><th>圖片主題</th><th>Alt 文字</th></tr>
+        <tr><td>魚油膠囊照</td><td>魚油Omega-3軟膠囊 EPA DHA心血管健康</td></tr>
+        <tr><td>蝦紅素成分圖</td><td>蝦紅素護眼成分機制說明 改善乾眼視力疲勞</td></tr>
+        <tr><td>研究數據圖表</td><td>臨床研究數據圖：補充藤黃果12週腰圍變化</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>批次確認缺少 Alt 的圖片</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <a href="https://www.seoptimer.com/alt-tag-checker" target="_blank">seoptimer Alt Tag Checker</a></li>
+        <li>輸入 <code>https://shengtingbio.com/</code></li>
+        <li>依報告逐一補齊</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 合格標準</strong>Missing Alt Tags &lt; 10</div>
+    </div>
+  </div>
+
+  <button class="complete-btn" id="btn-s11" onclick="markDone('s11', this)">✓ 標記 S-11 完成</button>
+</div>
+
+<!-- Y-09 TITLE -->
+<div class="page" id="page-y09">
+  <h2 class="section-title">✏️ Y-09｜Title 標籤優化 <span class="priority priority-medium">高優先</span></h2>
+  <div class="info-box">平台：Shopline ｜ 預計時間：30 分鐘 ｜ 難度：⭐</div>
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>各頁面 Title 建議</h3></div>
+    <div class="step-content">
+      <table>
+        <tr><th>頁面</th><th>建議新 Title</th><th>字元數</th></tr>
+        <tr><td>首頁</td><td>苼莛國際生技｜天然安全保健食品專家</td><td>18 字</td></tr>
+        <tr><td>美顏系列</td><td>美白保健食品｜穀胱甘肽 蝦紅素 - 苼莛</td><td>21 字</td></tr>
+        <tr><td>纖盈管理</td><td>代謝管理保健食品｜藤黃果 消化酵素 - 苼莛</td><td>23 字</td></tr>
+        <tr><td>腸胃保健</td><td>腸胃保健食品｜益生菌 消化酵素 - 苼莛</td><td>21 字</td></tr>
+        <tr><td>女性健康</td><td>女性保健食品｜大豆異黃酮 月見草油 - 苼莛</td><td>24 字</td></tr>
+      </table>
+      <div class="verify-box"><strong>✅ 驗證</strong>前往 <a href="https://metatags.io/?url=https://www.yardley.tw/" target="_blank">metatags.io</a>，確認 Title 在 Google 預覽中不被截斷</div>
+    </div>
+  </div>
+  <button class="complete-btn" id="btn-y09" onclick="markDone('y09', this)">✓ 標記 Y-09 完成</button>
+</div>
+
+<!-- Y-10 LINKS -->
+<div class="page" id="page-y10">
+  <h2 class="section-title">🔗 Y-10｜兩站內部連結策略 <span class="priority priority-medium">高優先</span></h2>
+  <div class="info-box">平台：Shopline + WordPress ｜ 預計時間：1-2 小時 ｜ 難度：⭐⭐</div>
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>yardley.tw 產品頁加延伸閱讀</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「商品」→ 選擇產品 → 「商品描述」底部</strong></li>
+        <li>加入以下 HTML：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;div style="margin-top:30px;padding:20px;background:#f0f7ff;border-left:4px solid #2196F3;border-radius:4px;"&gt;
+  &lt;p style="margin:0 0 10px;font-weight:bold;"&gt;📚 延伸閱讀 — 科學了解此成分&lt;/p&gt;
+  &lt;ul style="margin:0;padding-left:20px;line-height:2;"&gt;
+    &lt;li&gt;&lt;a href="https://shengtingbio.com/[文章URL]/" target="_blank" rel="noopener"&gt;文章標題&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</pre>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>shengtingbio.com 文章加產品連結</h3></div>
+    <div class="step-content">
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;div style="margin-top:30px;padding:20px;background:#fff8e1;border:1px solid #FFD700;border-radius:8px;"&gt;
+  &lt;p style="margin:0 0 8px;font-weight:bold;"&gt;🛒 苼莛相關產品&lt;/p&gt;
+  &lt;a href="https://www.yardley.tw/products/[產品URL]" style="display:inline-block;padding:8px 16px;background:#4CAF50;color:white;text-decoration:none;border-radius:4px;"&gt;查看相關產品 →&lt;/a&gt;
+&lt;/div&gt;</pre>
+    </div>
+  </div>
+  <button class="complete-btn" id="btn-y10" onclick="markDone('y10', this)">✓ 標記 Y-10 完成</button>
+</div>
+
+<!-- Y-11 ABOUT -->
+<div class="page" id="page-y11">
+  <h2 class="section-title">🏢 Y-11｜品牌 About 頁面 <span class="priority priority-medium">高優先</span></h2>
+  <div class="info-box">平台：Shopline ｜ 預計時間：2-3 小時 ｜ 難度：⭐⭐</div>
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>建立新頁面</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <strong>「網路商店」→「頁面」→「新增頁面」</strong></li>
+        <li>標題：<code>關於苼莛國際生技</code>，URL：<code>about</code></li>
+        <li>填入 500-800 字的品牌介紹，結構如下：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button">H1：關於苼莛國際生技
+H2：我們的核心理念
+  → 天然安全 / 科學依據 / 全球原料 / 健康為先
+H2：品質保證
+  → GMP認證 / 第三方檢驗 / 原料可追溯
+H2：聯絡我們
+  → 地址、電話、LINE、Email</pre>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>加入 Schema + 加到導航選單</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>在頁面底部加入 Organization Schema（同 Y-06 的程式碼）</li>
+        <li>前往 <strong>「網路商店」→「選單」</strong> → 加入「關於我們」連結</li>
+      </ol>
+      <div class="verify-box"><strong>✅ 確認</strong>前往 yardley.tw 的選單，點選「關於我們」能正常顯示頁面</div>
+    </div>
+  </div>
+  <button class="complete-btn" id="btn-y11" onclick="markDone('y11', this)">✓ 標記 Y-11 完成</button>
+</div>
+
+<!-- Y-12 GOOGLE BUSINESS -->
+<div class="page" id="page-y12">
+  <h2 class="section-title">📍 Y-12｜Google Business Profile <span class="priority priority-low">中優先</span></h2>
+  <div class="info-box">難度：⭐ ｜ 設定 30 分鐘 + 等待驗證 1-2 週</div>
+  <div class="step">
+    <div class="step-header"><div class="step-num">1</div><h3>申請帳號</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>前往 <a href="https://business.google.com/" target="_blank">business.google.com</a></li>
+        <li>點「管理」→「新增商家」</li>
+        <li>填入：商家名稱（苼莛國際生技有限公司）、類別（健康食品店）、地址、電話、網站</li>
+        <li>選擇驗證方式（電話最快，明信片約 1-2 週）</li>
+      </ol>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-header"><div class="step-num">2</div><h3>驗證後完善資料</h3></div>
+    <div class="step-content">
+      <table>
+        <tr><th>欄位</th><th>填入內容</th></tr>
+        <tr><td>商家描述</td><td>苼莛國際生技提供天然安全保健食品，涵蓋美顏、代謝、腸胃、女性健康等系列，以科學依據守護您的健康。</td></tr>
+        <tr><td>主要類別</td><td>健康食品店</td></tr>
+        <tr><td>相片</td><td>Logo + 產品照 + 辦公室照（至少 5 張）</td></tr>
+      </table>
+      <div class="verify-box"><strong>✅ 確認</strong>Google 搜尋「苼莛國際生技」，右側出現商家資訊卡片</div>
+    </div>
+  </div>
+  <button class="complete-btn" id="btn-y12" onclick="markDone('y12', this)">✓ 標記 Y-12 完成</button>
+</div>
+
+</main>
+
+<script>
+// Task ID mapping: nav ID -> page ID -> button ID
+const tasks = [
+  'y01','y03','y04','y05','y06','y09','y10','y11','y12',
+  's01','s02','s04','s05','s06','s07','s08','s09','s10','s11'
+];
+
+const totalTasks = 23;
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('seo_progress') || '{}'); }
+  catch(e) { return {}; }
+}
+
+function saveState(state) {
+  localStorage.setItem('seo_progress', JSON.stringify(state));
+}
+
+function updateProgress() {
+  const state = loadState();
+  const done = Object.values(state).filter(Boolean).length;
+  document.getElementById('progress-text').textContent = `${done} / ${totalTasks}`;
+  document.getElementById('progress-bar-inner').style.width = `${(done/totalTasks)*100}%`;
+}
+
+function applyState() {
+  const state = loadState();
+  tasks.forEach(id => {
+    const check = document.getElementById('check-' + id);
+    const nav = document.getElementById('nav-' + id);
+    const btn = document.getElementById('btn-' + id);
+    if(state[id]) {
+      if(check) { check.textContent = ''; check.style.background = '#52b788'; check.style.borderColor = '#52b788'; check.innerHTML = '<span style="font-size:9px;color:#fff;">✓</span>'; }
+      if(nav) nav.classList.add('done');
+      if(btn) { btn.textContent = '✓ 已完成'; btn.classList.add('completed'); }
+    }
+  });
+  updateProgress();
+}
+
+function markDone(id, btn) {
+  const state = loadState();
+  if(state[id]) {
+    state[id] = false;
+    btn.textContent = '✓ 標記 ' + id.toUpperCase() + ' 完成';
+    btn.classList.remove('completed');
+    const check = document.getElementById('check-' + id);
+    if(check) { check.innerHTML = ''; check.style.background = ''; check.style.borderColor = '#555'; }
+    const nav = document.getElementById('nav-' + id);
+    if(nav) nav.classList.remove('done');
+  } else {
+    state[id] = true;
+    btn.textContent = '✓ 已完成';
+    btn.classList.add('completed');
+    const check = document.getElementById('check-' + id);
+    if(check) { check.style.background = '#52b788'; check.style.borderColor = '#52b788'; check.innerHTML = '<span style="font-size:9px;color:#fff;">✓</span>'; }
+    const nav = document.getElementById('nav-' + id);
+    if(nav) nav.classList.add('done');
+  }
+  saveState(state);
+  updateProgress();
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if(page) page.classList.add('active');
+  const nav = document.querySelector(`[onclick="showPage('${id}')"]`);
+  if(nav) nav.classList.add('active');
+  document.getElementById('main').scrollTop = 0;
+}
+
+function copyCode(btn) {
+  const pre = btn.parentElement;
+  const text = pre.innerText.replace('複製', '').replace('已複製！', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '已複製！';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '複製'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+applyState();
+</script>
+</body>
+</html>
