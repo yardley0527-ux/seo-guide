@@ -514,6 +514,12 @@
     <a class="nav-item active" onclick="showPage('overview')">
       <span>📊</span> 分析總覽
     </a>
+    <a class="nav-item" onclick="showPage('log')">
+      <span>📋</span> 執行紀錄
+    </a>
+    <a class="nav-item" onclick="showPage('issues')">
+      <span>⚠️</span> 待確認問題
+    </a>
     <a class="nav-item" onclick="showPage('tools')">
       <span>🔧</span> 驗證工具清單
     </a>
@@ -630,21 +636,33 @@
 <div class="page active" id="page-overview">
   <div class="hero">
     <h2>SEO + AIO 改善分析報告</h2>
-    <p>分析日期：2026-05-28 ｜ 分析網站：yardley.tw + shengtingbio.com</p>
+    <p>分析日期：2026-05-28 ｜ 最後更新：2026-05-28 18:30 ｜ yardley.tw + shengtingbio.com</p>
   </div>
 
-  <h2 class="section-title">🎯 AIO 可引用性評分</h2>
+  <h2 class="section-title">🎯 AIO 可引用性評分（更新後）</h2>
   <div class="score-grid">
     <div class="score-card">
-      <h4>yardley.tw 目前評分</h4>
-      <div class="score">1.5<span> / 10</span></div>
-      <p>電商站缺少 Schema、Meta、Alt，AI 幾乎無法識別</p>
+      <h4>yardley.tw</h4>
+      <div class="score" style="color:#e67e22">4<span> / 10</span></div>
+      <p>Organization + BreadcrumbList Schema 已上線 ✅<br>Product Schema brand 欄位待修正 ⚠️</p>
     </div>
     <div class="score-card">
-      <h4>shengtingbio.com 目前評分</h4>
-      <div class="score">3.5<span> / 10</span></div>
-      <p>內容站有文章基礎，但缺少 Schema 和摘要格式</p>
+      <h4>shengtingbio.com</h4>
+      <div class="score" style="color:#e67e22">5<span> / 10</span></div>
+      <p>403 篇 Meta Description 批次處理完成 ✅<br>寫入結果待確認 ⚠️</p>
     </div>
+  </div>
+
+  <h2 class="section-title">✅ 今日完成項目</h2>
+  <div class="content-card">
+    <table>
+      <tr><th>網站</th><th>完成項目</th><th>狀態</th></tr>
+      <tr><td>yardley.tw</td><td>Organization Schema（品牌身份）</td><td>✅ 上線確認</td></tr>
+      <tr><td>yardley.tw</td><td>BreadcrumbList Schema（麵包屑）</td><td>✅ 上線確認</td></tr>
+      <tr><td>yardley.tw</td><td>Product Schema（產品資訊）</td><td>⚠️ 待修正 brand 欄位</td></tr>
+      <tr><td>shengtingbio.com</td><td>Meta Description 批次產生（403篇）</td><td>⚠️ 待確認寫入狀態</td></tr>
+      <tr><td>yardley0527-ux.github.io/seo-guide</td><td>教學網頁部署上線</td><td>✅ 完成</td></tr>
+    </table>
   </div>
 
   <h2 class="section-title">🔴 四大最嚴重問題</h2>
@@ -706,6 +724,117 @@
       <tr><td>兩站</td><td>互相連結</td><td>SEO 權重互傳</td></tr>
       <tr><td>yardley.tw</td><td>Google Business Profile</td><td>Local SEO + 可信度</td></tr>
       <tr><td>shengtingbio.com</td><td>作者頁面 + Person Schema</td><td>E-E-A-T 大幅提升</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- LOG PAGE -->
+<div class="page" id="page-log">
+  <h2 class="section-title">📋 執行紀錄</h2>
+
+  <div class="content-card">
+    <h3 class="sub-title">2026-05-28｜今日執行內容</h3>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>yardley.tw — Organization Schema 上線</h3></div>
+      <div class="step-content">
+        <p>在 <code>layout/theme.liquid</code> 的 <code>&lt;/head&gt;</code> 前加入 Organization Schema。</p>
+        <div class="verify-box"><strong>✅ 驗證通過</strong>curl 確認首頁有正確輸出：名稱、統編、地址、電話、FB/IG/shengtingbio.com 連結全部正確。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>yardley.tw — BreadcrumbList Schema 上線</h3></div>
+      <div class="step-content">
+        <p>在 <code>templates/product.liquid</code> 底部加入 BreadcrumbList Schema（首頁 → 全部商品 → 產品名稱）。</p>
+        <div class="verify-box"><strong>✅ 驗證通過</strong>產品頁面確認有 BreadcrumbList 輸出，三層路徑正確。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#e67e22">!</div><h3>yardley.tw — Product Schema（待修正）</h3></div>
+      <div class="step-content">
+        <p>Shopline 內建自動產生 Product Schema，但 <code>brand</code> 欄位為空字串。我們加入的 Product Schema 可能與 Shopline 內建衝突。</p>
+        <div class="warning-box">⚠️ 待確認：product.liquid 底部程式碼是否正確儲存？brand 欄位是否輸出「苼莛國際生技」？</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#e67e22">!</div><h3>shengtingbio.com — Meta Description 批次產生</h3></div>
+      <div class="step-content">
+        <p>使用 Claude API（Haiku 模型）+ WP-CLI 批次處理 403 篇文章，每篇產生 100-130 字的繁體中文 Meta Description，寫入 <code>_aioseo_description</code> 欄位。</p>
+        <p><strong>平台確認：</strong>shengtingbio.com 使用 <strong>AIOSEO</strong>（All in One SEO），非 Yoast SEO。</p>
+        <p><strong>完成篇數：</strong>403 / 403 ✅</p>
+        <div class="warning-box">⚠️ 待確認：curl 驗證文章 Meta Description 顯示內容仍為舊的截斷版本，需到 WordPress 後台確認 AIOSEO 欄位是否有寫入值。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>教學網頁部署至 GitHub Pages</h3></div>
+      <div class="step-content">
+        <p>將 SEO + AIO 互動教學系統部署至 GitHub Pages。</p>
+        <div class="verify-box"><strong>✅ 網址</strong><a href="https://yardley0527-ux.github.io/seo-guide/" target="_blank">https://yardley0527-ux.github.io/seo-guide/</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ISSUES PAGE -->
+<div class="page" id="page-issues">
+  <h2 class="section-title">⚠️ 待確認問題</h2>
+
+  <div class="content-card">
+    <h3 class="sub-title" style="color:#c62828">🔴 需要立即確認</h3>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#e63946">1</div><h3>shengtingbio.com — Meta Description 是否寫入成功？</h3></div>
+      <div class="step-content">
+        <p><strong>現象：</strong>403 篇腳本跑完，但 curl 抓取的 Meta Description 仍是舊的截斷版本。</p>
+        <p><strong>確認方法：</strong></p>
+        <ol>
+          <li>WordPress 後台 → 任一文章「編輯」</li>
+          <li>滑到底部找 AIOSEO 面板</li>
+          <li>查看「Meta 描述」欄位是否有完整的 AI 生成文字（100字以上）</li>
+        </ol>
+        <div class="danger-box">
+          <strong>如果欄位是空的：</strong>腳本寫入失敗，需要重新確認 WP-CLI 指令和 meta key 名稱。<br>
+          <strong>如果欄位有值：</strong>AIOSEO 設定問題，可能需要清除快取或調整 AIOSEO 的 meta description 來源設定。
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#e63946">2</div><h3>yardley.tw — Organization Schema JSON 解析錯誤</h3></div>
+      <div class="step-content">
+        <p><strong>現象：</strong>validator.schema.org 解析 Organization Schema 時出現 <code>Invalid control character</code> 錯誤。</p>
+        <p><strong>原因：</strong><code>alternateName</code> 陣列內可能有隱藏的換行字元。</p>
+        <p><strong>修正方法：</strong>到 Shopline 後台 → <code>layout/theme.liquid</code>，確認 Organization Schema 中 alternateName 這行是否為：</p>
+        <pre style="margin:8px 0"><button class="copy-btn" onclick="copyCode(this)">複製</button>"alternateName": ["苼莛生技", "Yardley International Biotech"],</pre>
+        <p>確保整行在同一行，沒有換行。</p>
+        <div class="verify-box"><strong>✅ 驗證</strong>前往 <a href="https://validator.schema.org/" target="_blank">validator.schema.org</a> 輸入 yardley.tw，確認 Organization 無紅色錯誤。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#e67e22">3</div><h3>yardley.tw — Product Schema brand 欄位為空</h3></div>
+      <div class="step-content">
+        <p><strong>現象：</strong>產品頁 <code>"brand": ""</code>，未顯示「苼莛國際生技」。</p>
+        <p><strong>原因：</strong>頁面顯示的是 Shopline 內建 Schema，不是我們加的版本。</p>
+        <p><strong>確認方法：</strong>到 <code>templates/product.liquid</code> 確認底部有無我們的程式碼。若有衝突，可在我們的 Schema 加上 <code>id</code> 區分，或移除 Shopline 內建的。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3 class="sub-title" style="color:#e65100">🟠 下一步待執行</h3>
+    <table>
+      <tr><th>優先順序</th><th>任務</th><th>網站</th></tr>
+      <tr><td>1</td><td>確認 Meta Description 寫入問題，若失敗則重新執行</td><td>shengtingbio.com</td></tr>
+      <tr><td>2</td><td>修正 Organization Schema JSON 錯誤</td><td>yardley.tw</td></tr>
+      <tr><td>3</td><td>確認 Product Schema brand 欄位</td><td>yardley.tw</td></tr>
+      <tr><td>4</td><td>設定所有產品圖片 Alt 屬性</td><td>yardley.tw</td></tr>
+      <tr><td>5</td><td>FAQ Schema（前 10 篇文章）</td><td>shengtingbio.com</td></tr>
+      <tr><td>6</td><td>文章開頭加一句話摘要</td><td>shengtingbio.com</td></tr>
     </table>
   </div>
 </div>
