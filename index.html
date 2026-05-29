@@ -189,10 +189,13 @@
     padding: 20px;
   }
 
+  .score-card { text-align: center; }
   .score-card h4 { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
   .score-card .score { font-size: 36px; font-weight: 800; color: var(--danger); }
   .score-card .score span { font-size: 16px; color: var(--muted); font-weight: 400; }
-  .score-card p { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .score-card p { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .score-card .check-list { list-style: none; margin-top: 10px; padding: 0; text-align: left; display: inline-block; }
+  .score-card .check-list li { font-size: 13px; color: var(--muted); padding: 2px 0; }
 
   .problems-grid {
     display: grid;
@@ -644,12 +647,26 @@
     <div class="score-card">
       <h4>yardley.tw</h4>
       <div class="score" style="color:#e63946">3<span> / 10</span></div>
-      <p>H1 ✅｜Meta / OG / Schema 尚未偵測到 ❌<br>程式碼已備好，待貼入 Shopline theme.liquid</p>
+      <ul class="check-list">
+        <li>H1 標籤 ✅</li>
+        <li>Meta Description ❌</li>
+        <li>Open Graph 標籤 ❌</li>
+        <li>Schema Markup ❌</li>
+        <li style="color:#e67e22;margin-top:6px">程式碼已備好，待貼入 Shopline</li>
+      </ul>
     </div>
     <div class="score-card">
       <h4>shengtingbio.com</h4>
       <div class="score" style="color:#52b788">7<span> / 10</span></div>
-      <p>H1 ✅｜Meta Description 403篇 ✅｜OG 標籤 ✅<br>BlogPosting + Organization + Breadcrumb Schema ✅</p>
+      <ul class="check-list">
+        <li>H1 標籤 ✅</li>
+        <li>Meta Description 403篇 ✅</li>
+        <li>Open Graph 標籤 ✅</li>
+        <li>BlogPosting Schema ✅</li>
+        <li>Organization Schema ✅</li>
+        <li>BreadcrumbList Schema ✅</li>
+        <li>圖片 Alt ❌</li>
+      </ul>
     </div>
   </div>
 
