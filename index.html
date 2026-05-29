@@ -639,7 +639,7 @@
 <div class="page active" id="page-overview">
   <div class="hero">
     <h2>SEO + AIO 改善分析報告</h2>
-    <p>分析日期：2026-05-28 ｜ 最後更新：2026-05-29 16:20 ｜ yardley.tw + shengtingbio.com</p>
+    <p>分析日期：2026-05-28 ｜ 最後更新：2026-05-29 17:05 ｜ yardley.tw + shengtingbio.com</p>
   </div>
 
   <h2 class="section-title">🎯 AIO 可引用性評分（2026-05-29 實測）</h2>
@@ -686,7 +686,7 @@
       <tr><td>shengtingbio.com</td><td>BlogPosting Schema（AIOSEO）</td><td>✅ 確認</td></tr>
       <tr><td>shengtingbio.com</td><td>Organization Schema（AIOSEO）</td><td>✅ 確認</td></tr>
       <tr><td>shengtingbio.com</td><td>BreadcrumbList Schema</td><td>✅ 確認</td></tr>
-      <tr><td>shengtingbio.com</td><td>圖片 Alt 屬性</td><td>❌ 大部分缺少（待處理）</td></tr>
+      <tr><td>shengtingbio.com</td><td>圖片 Alt 屬性（7561 張）</td><td>✅ 7246 張已補齊，314 張原有 Alt</td></tr>
       <tr><td>seo-guide</td><td>每日 17:30 自動檢查排程</td><td>✅ 已設定</td></tr>
     </table>
   </div>
@@ -776,6 +776,15 @@
         <p>在 <code>neoton/functions.php</code> 新增 <code>neoton_seo_meta()</code> 函式，加入 og:type、og:site_name、og:title、og:url、og:description、og:image，並補強 Meta Description 輸出（優先讀取 AIOSEO 存的描述）。</p>
         <p>透過 scp 上傳至正式伺服器，立即生效。</p>
         <div class="verify-box"><strong>✅ 確認</strong>curl 驗證：og:title、og:description、og:image 均出現在 HTML head。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>shengtingbio.com — S-11 圖片 Alt 屬性批次補齊</h3></div>
+      <div class="step-content">
+        <p>執行 <code>fix-alt-text.php</code> 批次腳本，掃描全站所有圖片並自動產生 Alt 文字。</p>
+        <p><strong>結果：</strong>找到 7561 張圖片，已更新 7246 張，跳過（原有 Alt）314 張。</p>
+        <div class="verify-box"><strong>✅ 完成</strong>圖片搜尋流量與 AI 多模態引用機會大幅提升。</div>
       </div>
     </div>
 
@@ -1885,6 +1894,7 @@ const VERIFIED_DONE = {
   's01': true,   // AIOSEO ✅ 已驗證運作中
   's02': true,   // Meta Description 403篇 ✅ 資料庫 + HTML 均確認
   's05': true,   // Article Schema ✅ AIOSEO BlogPosting 已輸出
+  's11': true,   // 圖片 Alt ✅ 7246 張已補齊（2026-05-29）
 };
 
 function loadState() {
