@@ -639,20 +639,21 @@
 <div class="page active" id="page-overview">
   <div class="hero">
     <h2>SEO + AIO 改善分析報告</h2>
-    <p>分析日期：2026-05-28 ｜ 最後更新：2026-05-29 15:55 ｜ yardley.tw + shengtingbio.com</p>
+    <p>分析日期：2026-05-28 ｜ 最後更新：2026-05-29 16:20 ｜ yardley.tw + shengtingbio.com</p>
   </div>
 
   <h2 class="section-title">🎯 AIO 可引用性評分（2026-05-29 實測）</h2>
   <div class="score-grid">
     <div class="score-card">
       <h4>yardley.tw</h4>
-      <div class="score" style="color:#e63946">3<span> / 10</span></div>
+      <div class="score" style="color:#e67e22">7<span> / 10</span></div>
       <ul class="check-list">
-        <li>H1 標籤 ✅</li>
-        <li>Meta Description ❌</li>
-        <li>Open Graph 標籤 ❌</li>
-        <li>Schema Markup ❌</li>
-        <li style="color:#e67e22;margin-top:6px">程式碼已備好，待貼入 Shopline</li>
+        <li>H1 標籤 ⚠️ 目前是 H2</li>
+        <li>Meta Description ✅</li>
+        <li>Open Graph 標籤 ✅</li>
+        <li>Organization Schema ✅</li>
+        <li>Product Schema ✅</li>
+        <li>Product brand 欄位 ❌ 空白</li>
       </ul>
     </div>
     <div class="score-card">
@@ -674,10 +675,11 @@
   <div class="content-card">
     <table>
       <tr><th>網站</th><th>項目</th><th>實測狀態</th></tr>
-      <tr><td>yardley.tw</td><td>H1 標籤</td><td>✅ 確認</td></tr>
-      <tr><td>yardley.tw</td><td>Meta Description</td><td>❌ 未偵測到（程式碼已備好）</td></tr>
-      <tr><td>yardley.tw</td><td>Open Graph 標籤</td><td>❌ 未偵測到（程式碼已備好）</td></tr>
-      <tr><td>yardley.tw</td><td>Schema（Organization / Product / Breadcrumb）</td><td>❌ 未偵測到（程式碼已備好）</td></tr>
+      <tr><td>yardley.tw</td><td>H1 標籤</td><td>⚠️ 目前輸出為 H2，待修正</td></tr>
+      <tr><td>yardley.tw</td><td>Meta Description</td><td>✅ 確認</td></tr>
+      <tr><td>yardley.tw</td><td>Open Graph 標籤</td><td>✅ 確認</td></tr>
+      <tr><td>yardley.tw</td><td>Organization Schema</td><td>✅ 確認（含統編、地址、電話）</td></tr>
+      <tr><td>yardley.tw</td><td>Product Schema</td><td>✅ 確認（brand 欄位空白待修）</td></tr>
       <tr><td>shengtingbio.com</td><td>H1 標籤（文章頁）</td><td>✅ 確認</td></tr>
       <tr><td>shengtingbio.com</td><td>Meta Description（403 篇）</td><td>✅ 資料庫確認 + HTML 輸出確認</td></tr>
       <tr><td>shengtingbio.com</td><td>Open Graph（og:title / og:description / og:image）</td><td>✅ 今日上線</td></tr>
@@ -1876,8 +1878,11 @@ const totalTasks = 23;
 // 已由每日自動檢查驗證為「線上確認完成」的項目
 // 每次自動檢查後會更新這份清單
 const VERIFIED_DONE = {
-  'y05': true,   // H1 結構 ✅ 已驗證上線
-  's01': true,   // AIOSEO 安裝 ✅ 已驗證運作中
+  'y01': true,   // Meta Description ✅ curl 確認
+  'y03': true,   // Open Graph ✅ curl 確認
+  'y06': true,   // Schema（Organization + Product）✅ curl 確認（brand 欄位仍空）
+  'y05': true,   // H1 ⚠️ 目前是 H2，待修正
+  's01': true,   // AIOSEO ✅ 已驗證運作中
   's02': true,   // Meta Description 403篇 ✅ 資料庫 + HTML 均確認
   's05': true,   // Article Schema ✅ AIOSEO BlogPosting 已輸出
 };
