@@ -653,16 +653,21 @@
     </div>
   </div>
 
-  <h2 class="section-title">✅ 今日完成項目</h2>
+  <h2 class="section-title">✅ 線上驗證完成項目（2026-05-29 實測）</h2>
   <div class="content-card">
     <table>
-      <tr><th>網站</th><th>完成項目</th><th>狀態</th></tr>
-      <tr><td>yardley.tw</td><td>Organization Schema（品牌身份）</td><td>✅ 上線確認</td></tr>
-      <tr><td>yardley.tw</td><td>BreadcrumbList Schema（麵包屑）</td><td>✅ 上線確認</td></tr>
-      <tr><td>yardley.tw</td><td>Product Schema（產品資訊）</td><td>⚠️ 待修正 brand 欄位</td></tr>
-      <tr><td>shengtingbio.com</td><td>Meta Description 批次產生（403篇）</td><td>⚠️ 待確認寫入狀態</td></tr>
-      <tr><td>yardley0527-ux.github.io/seo-guide</td><td>教學網頁部署上線</td><td>✅ 完成</td></tr>
+      <tr><th>網站</th><th>項目</th><th>實測狀態</th></tr>
+      <tr><td>yardley.tw</td><td>H1 標籤</td><td>✅ 線上確認</td></tr>
+      <tr><td>yardley.tw</td><td>Meta Description</td><td>❌ 未偵測到</td></tr>
+      <tr><td>yardley.tw</td><td>Open Graph 標籤</td><td>❌ 未偵測到</td></tr>
+      <tr><td>yardley.tw</td><td>Schema（Organization / Product / Breadcrumb）</td><td>❌ 未偵測到</td></tr>
+      <tr><td>shengtingbio.com</td><td>H1 標籤（文章頁）</td><td>✅ 線上確認</td></tr>
+      <tr><td>shengtingbio.com</td><td>Meta Description</td><td>❌ 未偵測到</td></tr>
+      <tr><td>shengtingbio.com</td><td>Article Schema</td><td>❌ 未偵測到</td></tr>
+      <tr><td>shengtingbio.com</td><td>圖片 Alt 屬性</td><td>❌ 大部分缺少</td></tr>
+      <tr><td>yardley0527-ux.github.io/seo-guide</td><td>每日自動檢查排程</td><td>✅ 已設定（每日 17:30）</td></tr>
     </table>
+    <div class="info-box" style="margin-top:12px">ℹ️ 進度以每日 17:30 自動檢查為準。shengtingbio.com 的 Meta / Schema 修正已寫入本地主題，待上傳正式伺服器後即可驗證。yardley.tw 的修正程式碼已準備好，待貼入 Shopline theme.liquid。</div>
   </div>
 
   <h2 class="section-title">🔴 四大最嚴重問題</h2>
@@ -1832,9 +1837,19 @@ const tasks = [
 
 const totalTasks = 23;
 
+// 已由每日自動檢查驗證為「線上確認完成」的項目
+// 每次自動檢查後會更新這份清單
+const VERIFIED_DONE = {
+  'y05': true,   // H1 結構 ✅ 已驗證上線
+};
+
 function loadState() {
-  try { return JSON.parse(localStorage.getItem('seo_progress') || '{}'); }
-  catch(e) { return {}; }
+  try {
+    const saved = JSON.parse(localStorage.getItem('seo_progress') || '{}');
+    // 合併已驗證完成的項目（驗證結果優先）
+    return Object.assign({}, saved, VERIFIED_DONE);
+  }
+  catch(e) { return Object.assign({}, VERIFIED_DONE); }
 }
 
 function saveState(state) {
