@@ -639,7 +639,7 @@
 <div class="page active" id="page-overview">
   <div class="hero">
     <h2>SEO + AIO 改善分析報告</h2>
-    <p>分析日期：2026-05-28 ｜ 最後更新：2026-05-29 17:30 ｜ yardley.tw + shengtingbio.com</p>
+    <p>分析日期：2026-05-28 ｜ 最後更新：2026-06-01 ｜ yardley.tw + shengtingbio.com</p>
   </div>
 
   <h2 class="section-title">🎯 AIO 可引用性評分（2026-05-29 實測）</h2>
@@ -681,7 +681,8 @@
       <tr><td>yardley.tw</td><td>Organization Schema（含統編、地址、電話）</td><td>✅ 確認</td></tr>
       <tr><td>yardley.tw</td><td>Product Schema</td><td>⚠️ 確認但 brand 欄位空白</td></tr>
       <tr><td>yardley.tw</td><td>圖片 Alt</td><td>⏳ 尚未處理</td></tr>
-      <tr><td>shengtingbio.com</td><td>H1 標籤（文章頁）</td><td>✅ 確認</td></tr>
+      <tr><td>shengtingbio.com</td><td>H1 標籤（文章頁）</td><td>✅ 確認（2026-06-01 再次實測）</td></tr>
+      <tr><td>shengtingbio.com</td><td>URL 英文化</td><td>✅ 全站 404 篇均為英文 slug，0 篇中文（2026-06-01 sitemap 確認）</td></tr>
       <tr><td>shengtingbio.com</td><td>Meta Description（403 篇）</td><td>✅ HTML 輸出完整（含 AIOSEO 內容）</td></tr>
       <tr><td>shengtingbio.com</td><td>Open Graph（og:title / og:description / og:image）</td><td>✅ 確認（文章頁有特色圖片）</td></tr>
       <tr><td>shengtingbio.com</td><td>BlogPosting Schema</td><td>✅ 確認（含作者、發布日期、圖片）</td></tr>
@@ -749,9 +750,9 @@
     <h3 class="sub-title">📌 長期建設</h3>
     <table>
       <tr><th>網站</th><th>任務</th><th>預期效果</th></tr>
-      <tr><td>yardley.tw</td><td>品牌 About 頁面</td><td>品牌 Entity 建立</td></tr>
+      <tr><td>yardley.tw</td><td>品牌 About 頁面</td><td>❌ /pages/about 不存在，待建立</td></tr>
       <tr><td>兩站</td><td>互相連結</td><td>SEO 權重互傳</td></tr>
-      <tr><td>yardley.tw</td><td>Google Business Profile</td><td>Local SEO + 可信度</td></tr>
+      <tr><td>yardley.tw</td><td>Google Business Profile</td><td>✅ 已申請（2026-06-01）</td></tr>
       <tr><td>shengtingbio.com</td><td>作者頁面 + Person Schema</td><td>E-E-A-T 大幅提升</td></tr>
     </table>
   </div>
@@ -872,19 +873,10 @@
     <h3 class="sub-title" style="color:#c62828">🔴 需要立即確認</h3>
 
     <div class="step">
-      <div class="step-header"><div class="step-num" style="background:#e63946">1</div><h3>shengtingbio.com — Meta Description 是否寫入成功？</h3></div>
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>shengtingbio.com — Meta Description 寫入成功 ✅（2026-05-29 已解決）</h3></div>
       <div class="step-content">
-        <p><strong>現象：</strong>403 篇腳本跑完，但 curl 抓取的 Meta Description 仍是舊的截斷版本。</p>
-        <p><strong>確認方法：</strong></p>
-        <ol>
-          <li>WordPress 後台 → 任一文章「編輯」</li>
-          <li>滑到底部找 AIOSEO 面板</li>
-          <li>查看「Meta 描述」欄位是否有完整的 AI 生成文字（100字以上）</li>
-        </ol>
-        <div class="danger-box">
-          <strong>如果欄位是空的：</strong>腳本寫入失敗，需要重新確認 WP-CLI 指令和 meta key 名稱。<br>
-          <strong>如果欄位有值：</strong>AIOSEO 設定問題，可能需要清除快取或調整 AIOSEO 的 meta description 來源設定。
-        </div>
+        <p><strong>解決狀態：</strong>2026-05-29 17:30 curl 全站掃描已確認，403 篇文章的 Meta Description 均正確輸出於 HTML head，AIOSEO 資料庫寫入完整。</p>
+        <div class="verify-box"><strong>✅ 已驗證</strong>curl 抓取文章頁 HTML，Meta Description、BlogPosting Schema、BreadcrumbList 均正確輸出。</div>
       </div>
     </div>
 
@@ -1902,7 +1894,7 @@ const tasks = [
   's01','s02','s04','s05','s06','s07','s08','s09','s10','s11'
 ];
 
-const totalTasks = 23;
+const totalTasks = 19;
 
 // 已由每日自動檢查驗證為「線上確認完成」的項目
 // 每次自動檢查後會更新這份清單
@@ -1910,11 +1902,14 @@ const VERIFIED_DONE = {
   'y01': true,   // Meta Description ✅ curl 確認
   'y03': true,   // Open Graph ✅ curl 確認
   'y06': true,   // Schema（Organization + Product）✅ curl 確認（brand 欄位仍空）
-  'y05': true,   // H1 ⚠️ 目前是 H2，待修正
+  'y05': false,  // H1 ⚠️ 目前是 H2，待修正
   's01': true,   // AIOSEO ✅ 已驗證運作中
   's02': true,   // Meta Description 403篇 ✅ 資料庫 + HTML 均確認
   's05': true,   // Article Schema ✅ AIOSEO BlogPosting 已輸出
   's11': true,   // 圖片 Alt ✅ 7246 張已補齊（2026-05-29）
+  'y12': true,   // Google Business Profile ✅ 已申請進入（2026-06-01）
+  's04': true,   // H1 修正 ✅ 文章頁 H1 確認正確（2026-06-01 curl 實測）
+  's09': true,   // URL 英文化 ✅ 全站 404 篇均為英文 URL（2026-06-01 sitemap 確認）
 };
 
 function loadState() {
