@@ -1122,7 +1122,6 @@
     <a onclick="document.getElementById('ga4-dashboard').scrollIntoView({behavior:'smooth'})">🎯 整合判斷表</a>
     <a onclick="document.getElementById('ga4-metrics').scrollIntoView({behavior:'smooth'})">📊 6 項量化指標</a>
     <a onclick="document.getElementById('ga4-log').scrollIntoView({behavior:'smooth'})">📝 月度記錄表</a>
-    <a onclick="document.getElementById('ga4-setup').scrollIntoView({behavior:'smooth'})">⚙️ 設定教學</a>
     <a onclick="document.getElementById('ga4-zerocl').scrollIntoView({behavior:'smooth'})">🔍 零點擊偵測</a>
     <a onclick="document.getElementById('ga4-sop').scrollIntoView({behavior:'smooth'})">📅 月度 SOP</a>
     <a onclick="document.getElementById('ga4-score').scrollIntoView({behavior:'smooth'})">🏆 評分標準</a>
@@ -1268,152 +1267,12 @@
     </div>
   </div>
 
-  <!-- 自動化設定教學 -->
+  <!-- 自動化設定（已完成） -->
   <div class="content-card">
-    <p style="font-size:15px;font-weight:700;margin-bottom:16px;">⚙️ 自動化設定步驟（一次設定，永久自動）</p>
-
-    <div class="setup-step">
-      <div class="setup-num">1</div>
-      <div>
-        <h4>建立 Google Sheet</h4>
-        <p>前往 <strong>sheets.google.com</strong> → 新增試算表 → 命名為「SEO月度追蹤」</p>
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-num">2</div>
-      <div>
-        <h4>開啟 Apps Script</h4>
-        <p>在 Google Sheet 上方選單點「擴充功能」→「Apps Script」→ 進入程式碼編輯器</p>
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-num">3</div>
-      <div>
-        <h4>貼上自動化腳本</h4>
-        <p>將 <code>月度追蹤腳本.gs</code>（已在本機同資料夾）的全部內容貼入編輯器，取代原有程式碼</p>
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-num">4</div>
-      <div>
-        <h4>填入 ID（已預填完成 ✅）</h4>
-        <p>腳本最上方「設定區」已填好以下值，不需再修改：</p>
-        <table style="margin-top:6px;">
-          <tr><th>變數</th><th>值</th></tr>
-          <tr><td><code>GA4_PROPERTY_ID</code></td><td><code>438779977</code></td></tr>
-          <tr><td><code>GSC_SHENGTINGBIO</code></td><td><code>sc-domain:shengtingbio.com</code></td></tr>
-          <tr><td><code>GSC_YARDLEY</code></td><td><code>https://www.yardley.tw/</code></td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-num">5</div>
-      <div>
-        <h4>啟用 API 服務</h4>
-        <p>左側選單點「服務」→ 分別加入：</p>
-        <ul style="margin-top:4px;">
-          <li><strong>Google Analytics Data API</strong>（搜尋 analyticsdata）</li>
-          <li><strong>Google Search Console API</strong>（搜尋 searchconsole）</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-num">6</div>
-      <div>
-        <h4>執行授權並測試</h4>
-        <p>選擇函式 <code>runMonthlyReport</code> → 點「▷ 執行」→ 按照提示授權 Google 帳號</p>
-        <p>執行成功後 Sheet 會自動出現表頭和本月資料行。</p>
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-num">7</div>
-      <div>
-        <h4>設定每月自動觸發器</h4>
-        <p>選擇函式 <code>setup</code> → 點「▷ 執行」</p>
-        <p>完成後每月 1 日 09:00 會自動執行，不需再手動操作。</p>
-      </div>
-    </div>
-
-    <div class="setup-step">
-      <div class="setup-num">8</div>
-      <div>
-        <h4>嵌入 Sheet 到此頁面</h4>
-        <p>在 Google Sheet 點「檔案」→「共用」→「發布到網路」→ 選「試算表」→「以網頁發布」→ 複製網址</p>
-        <p>在本機 <code>index.html</code> 搜尋 <code>YOUR_SHEET_EMBED_URL</code>，替換成複製的網址，再 push 到 GitHub 即完成。</p>
-      </div>
-    </div>
+    <p style="font-size:15px;font-weight:700;margin-bottom:16px;">⚙️ 自動化狀態</p>
 
     <div class="verify-box" style="margin-top:8px;">
-      <strong>✅ 完成後效果</strong>每月 1 日腳本自動執行 → 數字寫入 Sheet → 此頁面自動顯示最新資料。你每月只需要填 Perplexity 引用率、FAQ 篇數、AIO 評分 3 個欄位。
-    </div>
-  </div>
-
-  <!-- 設定教學 -->
-  <h3 class="sub-title" id="ga4-setup">⚙️ 設定教學</h3>
-
-  <div class="content-card">
-    <h4 style="font-size:15px;font-weight:700;margin-bottom:12px;">G-01：GA4 自訂管道群組（追蹤 AI 來源）</h4>
-    <p>GA4 預設不會區分「Perplexity 點進來」和「一般 Google」——加自訂管道才能追蹤 AI referral 成長。</p>
-
-    <div class="step">
-      <div class="step-header"><div class="step-num">1</div><h3>進入管道群組設定</h3></div>
-      <div class="step-content">
-        <ol>
-          <li>前往 <strong>GA4 → 管理 → 資料顯示 → 管道群組</strong></li>
-          <li>點「建立新的管道群組」</li>
-          <li>名稱填：<code>AI 搜尋來源</code></li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-header"><div class="step-num">2</div><h3>新增 AI 管道規則</h3></div>
-      <div class="step-content">
-        <table>
-          <tr><th>管道名稱</th><th>規則條件</th></tr>
-          <tr><td>Perplexity AI</td><td>來源 <code>包含</code> <code>perplexity</code></td></tr>
-          <tr><td>ChatGPT</td><td>來源 <code>包含</code> <code>chatgpt</code> 或 <code>openai</code></td></tr>
-          <tr><td>Bing AI</td><td>來源 <code>包含</code> <code>bing</code> 且 媒介 <code>包含</code> <code>referral</code></td></tr>
-          <tr><td>You.com</td><td>來源 <code>包含</code> <code>you.com</code></td></tr>
-        </table>
-        <div class="verify-box"><strong>✅ 確認</strong>設定完成後，在「流量開發」報表右上角「管道群組」選「AI 搜尋來源」，確認維度有出現</div>
-        <div class="warning-box">⚠️ Perplexity / ChatGPT 並非每次都帶 referrer，部分流量會歸類為 Direct——只追蹤有帶來源的部分即可，這是正常現象。</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="content-card">
-    <h4 style="font-size:15px;font-weight:700;margin-bottom:12px;">G-02：GSC 連結 GA4（讓 Organic Search 能看查詢詞）</h4>
-
-    <div class="step">
-      <div class="step-header"><div class="step-num">1</div><h3>在 GA4 後台連結 GSC</h3></div>
-      <div class="step-content">
-        <ol>
-          <li>前往 <strong>GA4 → 管理 → 產品連結 → Search Console 連結</strong></li>
-          <li>點「連結」→ 選擇對應的 GSC 帳戶</li>
-          <li>選擇要連結的網站（yardley.tw 或 shengtingbio.com）</li>
-          <li>選擇資料串流 → 點「下一步」→「提交」</li>
-        </ol>
-        <div class="info-box">兩個網站需要分別設定，各建立一個 GA4 資源並分別連結對應的 GSC。</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-header"><div class="step-num">2</div><h3>查看自然搜尋查詢報表</h3></div>
-      <div class="step-content">
-        <ol>
-          <li>連結完成後（約 48 小時生效）</li>
-          <li>前往 <strong>GA4 → 報表 → 流量開發 → Google 自然搜尋流量</strong></li>
-          <li>可以看到：查詢詞 + 登陸頁 + Engagement Rate</li>
-        </ol>
-        <div class="verify-box"><strong>✅ 最有價值的報表組合</strong>維度：查詢 × 登陸頁 ｜ 指標：點擊數 + Engagement Rate</div>
-      </div>
+      ✅ <strong>Looker Studio 儀表板已連接</strong> — GSC 數據自動即時更新，無需手動操作。每月只需填 3 欄手動指標（見下方）。
     </div>
   </div>
 
@@ -1439,58 +1298,18 @@
     </ol>
   </div>
 
-  <!-- 品牌搜尋追蹤 -->
-  <h3 class="sub-title">🏷️ 品牌搜尋量追蹤</h3>
-  <div class="content-card">
-    <p>AIO 提升品牌可信度後，品牌名的直接搜尋次數應該跟著成長。這是最乾淨的 AIO 效益指標之一。</p>
-    <div class="step">
-      <div class="step-header"><div class="step-num">1</div><h3>在 GSC 建立品牌查詢篩選器</h3></div>
-      <div class="step-content">
-        <ol>
-          <li>前往 <strong>GSC → 成效 → 搜尋結果</strong></li>
-          <li>點「+ 新增篩選器」→「查詢」→「包含」</li>
-          <li>分別設定以下品牌關鍵字：</li>
-        </ol>
-        <table>
-          <tr><th>網站</th><th>品牌查詢詞</th></tr>
-          <tr><td>yardley.tw</td><td>苼莛、yardley、苼莛生技、苼莛國際</td></tr>
-          <tr><td>shengtingbio.com</td><td>苼莛生技雜誌、shengtingbio</td></tr>
-        </table>
-        <div class="verify-box"><strong>✅ 追蹤方式</strong>每月記錄品牌查詢的「點擊數」，月環比成長 &gt;10% 代表品牌知名度在擴大</div>
-      </div>
-    </div>
-  </div>
-
   <!-- 月度 SOP -->
-  <h3 class="sub-title" id="ga4-sop">📅 月度 AIO 成效評估 SOP</h3>
+  <h3 class="sub-title" id="ga4-sop">📅 月度 SOP（每月約 10 分鐘）</h3>
   <div class="content-card">
-    <p>每月 1 日執行，約 <strong>30–40 分鐘</strong>。完成後將數字填入上方月度記錄表。</p>
     <table>
       <tr><th>#</th><th>步驟</th><th>工具</th><th>記錄什麼</th></tr>
-      <tr><td>1</td><td>GSC 曝光 + 點擊 vs 上月</td><td>Google Search Console</td><td>總曝光、總點擊、平均 CTR</td></tr>
-      <tr><td>2</td><td>找「曝光↑ CTR↓」頁面</td><td>GSC 成效 → 頁面標籤</td><td>列出前 5 筆，確認是否有 AI Overview</td></tr>
-      <tr><td>3</td><td>品牌搜尋量</td><td>GSC 查詢篩選</td><td>苼莛相關查詢的點擊數</td></tr>
-      <tr><td>4</td><td>Rich Result 曝光率 <span class="tag">①</span></td><td>GSC → 搜尋外觀篩選</td><td>複合式結果曝光頁數</td></tr>
-      <tr><td>5</td><td>文章索引覆蓋率 <span class="tag">⑥</span></td><td>GSC → 索引 → 頁面</td><td>已索引 ÷ 總提交頁數</td></tr>
-      <tr><td>6</td><td>AI Referral 流量</td><td>GA4 自訂管道群組</td><td>Perplexity / ChatGPT Sessions 數</td></tr>
-      <tr><td>7</td><td>Organic Engagement Rate</td><td>GA4 → 流量開發</td><td>整體 + shengtingbio.com 分開看</td></tr>
-      <tr><td>8</td><td>平均參與時間對比 <span class="tag">②</span></td><td>GA4 → 登陸頁報表</td><td>FAQ 文章 vs 未優化文章（秒）</td></tr>
-      <tr><td>9</td><td>Scroll Depth <span class="tag">③</span></td><td>GA4 → 事件 → scroll</td><td>90% scroll 觸發率</td></tr>
-      <tr><td>10</td><td>FAQ Schema 覆蓋篇數 <span class="tag">④</span></td><td>手動統計</td><td>累積篇數</td></tr>
-      <tr><td>11</td><td>Perplexity 引用率 <span class="tag">⑤</span></td><td>perplexity.ai 手動測試</td><td>10 題中幾題引用 shengtingbio.com</td></tr>
-      <tr><td>12</td><td>Schema 錯誤確認</td><td>Rich Results Test / validator.schema.org</td><td>確認兩站均無紅色錯誤</td></tr>
-      <tr><td>13</td><td>更新 AIO 評分（見下方）</td><td>評分標準表</td><td>兩站各自評分，對照上月</td></tr>
+      <tr><td>1</td><td>查看 Looker Studio 儀表板（上方）</td><td>此頁面</td><td>曝光、點擊趨勢 vs 上月</td></tr>
+      <tr><td>2</td><td>找「曝光↑ CTR↓」頁面</td><td>GSC 成效 → 頁面標籤</td><td>確認是否有 AI Overview 截流</td></tr>
+      <tr><td>3</td><td>Perplexity 引用測試</td><td>perplexity.ai</td><td>10 題中幾題引用 shengtingbio.com（填入下方）</td></tr>
+      <tr><td>4</td><td>FAQ Schema 覆蓋篇數</td><td>手動統計</td><td>累積篇數（填入下方）</td></tr>
+      <tr><td>5</td><td>更新 AIO 評分</td><td>下方評分標準表</td><td>兩站各自評分，對照上月</td></tr>
     </table>
-
-    <h4 style="margin:16px 0 8px;font-size:14px;font-weight:600;">步驟 11 Perplexity 測試問法範例：</h4>
-    <table>
-      <tr><th>類型</th><th>問法範例</th><th>期望結果</th></tr>
-      <tr><td>成分型</td><td>魚油每天要吃幾克才有效？</td><td>引用 shengtingbio.com 並附連結</td></tr>
-      <tr><td>成分型</td><td>藤黃果對減重有效嗎？</td><td>引用有 FAQ Schema 的文章</td></tr>
-      <tr><td>成分型</td><td>蝦紅素護眼的機制是什麼？</td><td>引用保健相關文章</td></tr>
-      <tr><td>品牌型</td><td>苼莛國際生技是什麼公司？</td><td>出現品牌介紹，引用 yardley.tw</td></tr>
-      <tr><td>品牌型</td><td>苼莛生技雜誌有哪些主題文章？</td><td>引用 shengtingbio.com 文章分類</td></tr>
-    </table>
+    <div class="info-box" style="margin-top:12px;"><strong>Perplexity 測試問法：</strong>魚油每天要吃幾克？／藤黃果對減重有效嗎？／苼莛國際生技是什麼公司？</div>
   </div>
 
   <!-- AIO 評分標準 -->
