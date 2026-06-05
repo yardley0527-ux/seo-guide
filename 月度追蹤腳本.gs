@@ -11,14 +11,13 @@
 
 // ─── 設定區（請填入你的資料）─────────────────────────────
 const CONFIG = {
-  // GA4 數值串流 ID（GA4 → 管理 → 資料串流 → 找「評估 ID」旁邊的「G-XXXXXXXXXX」前面的純數字）
-  // 例如：GA4 Property 頁面 URL 是 .../p123456789 → 填 "123456789"
-  GA4_PROPERTY_ID: "YOUR_GA4_PROPERTY_ID",
+  // GA4 Property ID（yardley.tw）
+  GA4_PROPERTY_ID: "438779977",
 
-  // shengtingbio.com 在 GSC 登記的網址（通常含 https://）
-  GSC_SHENGTINGBIO: "https://shengtingbio.com/",
+  // shengtingbio.com 在 GSC 的網域資源格式
+  GSC_SHENGTINGBIO: "sc-domain:shengtingbio.com",
 
-  // yardley.tw 在 GSC 登記的網址
+  // yardley.tw 在 GSC 的網址前置資源格式
   GSC_YARDLEY: "https://www.yardley.tw/",
 
   // Google Sheet 名稱（會自動建立）
