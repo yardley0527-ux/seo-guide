@@ -1231,23 +1231,15 @@
   <div class="content-card">
     <p style="font-size:13px;font-weight:600;margin-bottom:8px;">📈 即時儀表板（設定完成後自動顯示）</p>
 
-    <!-- 設定完成後，將下方 YOUR_SHEET_EMBED_URL 換成你的 Google Sheet 發布網址 -->
     <div class="sheet-embed-wrap" id="sheet-embed-wrap">
-      <div class="sheet-placeholder" id="sheet-placeholder">
-        <div class="ph-icon">📋</div>
-        <p><strong>尚未連結 Google Sheet</strong></p>
-        <p>完成下方「自動化設定步驟」後，在此貼上 Sheet 的發布網址即可自動顯示。</p>
-        <p style="margin-top:12px;">已完成設定？在此頁面原始碼中搜尋 <code>YOUR_SHEET_EMBED_URL</code> 並替換。</p>
-      </div>
-      <!-- 設定完成後取消以下這行的註解，並替換網址 -->
-      <!-- <iframe src="YOUR_SHEET_EMBED_URL&rm=minimal&headers=false&gid=0&range=A1:R30"></iframe> -->
+      <iframe src="https://datastudio.google.com/embed/reporting/be0c6cd1-7481-44b4-99a4-a3bf4b3d53e7/page/KoO0F" frameborder="0" style="width:100%;height:480px;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
   <!-- 手動補充欄（只剩 3 項） -->
   <div class="content-card">
     <p style="font-size:13px;font-weight:600;margin-bottom:8px;">📝 手動補充（每月只需填這 3 欄）</p>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">其餘 10 項指標已由 Apps Script 自動寫入 Google Sheet。</p>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">以上儀表板由 Looker Studio 自動連接 GSC 即時更新，以下 3 欄需每月手動補充。</p>
     <div style="overflow-x:auto;">
       <table class="monthly-table">
         <tr>
