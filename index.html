@@ -667,9 +667,6 @@
     <a class="nav-item" onclick="showPage('issues')">
       <span>⚠️</span> 待確認問題
     </a>
-    <a class="nav-item" onclick="showPage('tools')">
-      <span>🔧</span> 驗證工具清單
-    </a>
     <a class="nav-item" onclick="showPage('ga4')">
       <span>📈</span> GA4 + AIO 成效追蹤
     </a>
@@ -786,7 +783,7 @@
 <div class="page active" id="page-overview">
   <div class="hero">
     <h2>SEO + AIO 改善分析報告</h2>
-    <p>分析日期：2026-05-28 ｜ 最後更新：2026-06-01 ｜ yardley.tw + shengtingbio.com</p>
+    <p>分析日期：2026-05-28 ｜ 最後更新：2026-06-05 ｜ yardley.tw + shengtingbio.com</p>
   </div>
 
   <h2 class="section-title">🎯 AIO 可引用性評分（2026-06-01 實測）</h2>
@@ -910,6 +907,54 @@
 <!-- LOG PAGE -->
 <div class="page" id="page-log">
   <h2 class="section-title">📋 執行紀錄</h2>
+
+  <div class="content-card">
+    <h3 class="sub-title">2026-06-05｜GA4 成效追蹤系統建立</h3>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>新增「GA4 + AIO 成效追蹤」頁面</h3></div>
+      <div class="step-content">
+        <p>在教學系統新增完整的 AIO 成效評估框架，包含：</p>
+        <ul>
+          <li>AIO 成效整合判斷表（GA4 + GSC + 人工測試）</li>
+          <li>6 項進階量化指標（Rich Result 曝光率、參與時間對比、Scroll Depth、FAQ 覆蓋率、Perplexity 引用率、索引覆蓋率）</li>
+          <li>月度 AIO 成效評估 SOP（13 步驟）</li>
+          <li>AIO 可引用性評分標準（0–10 分細項）</li>
+        </ul>
+        <div class="verify-box"><strong>✅ 已部署</strong>更新推送至 GitHub Pages，即時生效。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>月度自動化追蹤腳本（月度追蹤腳本.gs）</h3></div>
+      <div class="step-content">
+        <p>建立 Google Apps Script 自動化腳本，每月 1 日 09:00 自動拉取以下資料並寫入 Google Sheet：</p>
+        <table>
+          <tr><th>來源</th><th>自動化指標</th></tr>
+          <tr><td>GA4 Data API</td><td>Engagement Rate、AI Referral Sessions、FAQ 文章參與時間、Scroll 90% Rate</td></tr>
+          <tr><td>Search Console API</td><td>曝光、點擊、CTR、Rich Result 頁數、索引覆蓋率、品牌查詢點擊數</td></tr>
+        </table>
+        <p>手動欄位從原本 13 項縮減至 3 項（Perplexity 引用率、FAQ 覆蓋篇數、AIO 評分）。</p>
+        <div class="info-box">⏭️ 下一步：依頁面內「⚙️ 自動化設定步驟」完成 Google Sheet 連結與 embed 設定。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#1565c0">i</div><h3>兩站現況確認（2026-06-05 檢視）</h3></div>
+      <div class="step-content">
+        <table>
+          <tr><th>網站</th><th>項目</th><th>狀態</th></tr>
+          <tr><td>yardley.tw</td><td>H1 標籤</td><td>⚠️ 仍為 H2，待修正</td></tr>
+          <tr><td>yardley.tw</td><td>Product Schema brand 欄位</td><td>❌ 仍空白</td></tr>
+          <tr><td>yardley.tw</td><td>Organization Schema JSON</td><td>⚠️ Invalid control character 錯誤待修</td></tr>
+          <tr><td>yardley.tw</td><td>圖片 Alt（41/57 缺失）</td><td>⏳ 待處理</td></tr>
+          <tr><td>shengtingbio.com</td><td>Meta / OG / Schema / Alt</td><td>✅ 全部正常</td></tr>
+          <tr><td>shengtingbio.com</td><td>FAQ Schema</td><td>❌ 前 10 篇待加入</td></tr>
+          <tr><td>shengtingbio.com</td><td>文章摘要前置（一句話摘要）</td><td>⏳ 待優化</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <div class="content-card">
     <h3 class="sub-title">2026-05-29｜下班前全站掃描（17:30）</h3>
@@ -1066,44 +1111,6 @@
 </div>
 
 <!-- TOOLS PAGE -->
-<div class="page" id="page-tools">
-  <h2 class="section-title">🔧 驗證工具清單</h2>
-  <p>每個任務完成後，使用以下工具確認是否生效。</p>
-  <div class="tool-list">
-    <div class="tool-item">
-      <a href="https://search.google.com/test/rich-results" target="_blank">Google Rich Results Test</a>
-      <p>驗證 Schema Markup 是否正確，查看富摘要預覽</p>
-    </div>
-    <div class="tool-item">
-      <a href="https://metatags.io" target="_blank">metatags.io</a>
-      <p>預覽 Meta Description 和 OG 標籤在 Google / FB / LINE 的顯示效果</p>
-    </div>
-    <div class="tool-item">
-      <a href="https://validator.schema.org/" target="_blank">Schema Markup Validator</a>
-      <p>詳細驗證 JSON-LD 語法是否正確，無錯誤</p>
-    </div>
-    <div class="tool-item">
-      <a href="https://pagespeed.web.dev" target="_blank">PageSpeed Insights</a>
-      <p>測試網頁載入速度，Core Web Vitals 分數</p>
-    </div>
-    <div class="tool-item">
-      <a href="https://search.google.com/search-console" target="_blank">Google Search Console</a>
-      <p>追蹤整體 SEO 表現、覆蓋率、點擊率</p>
-    </div>
-    <div class="tool-item">
-      <a href="https://www.facebook.com/sharing/debugger/" target="_blank">Facebook Sharing Debugger</a>
-      <p>測試 Open Graph 標籤，確認 FB / LINE 分享預覽</p>
-    </div>
-    <div class="tool-item">
-      <a href="https://www.seoptimer.com/alt-tag-checker" target="_blank">SEOptimer Alt Tag Checker</a>
-      <p>批次檢查網頁中缺少 Alt 屬性的圖片數量</p>
-    </div>
-    <div class="tool-item">
-      <a href="https://perplexity.ai" target="_blank">Perplexity AI</a>
-      <p>用問題測試文章是否被 AI 搜尋引擎引用</p>
-    </div>
-  </div>
-</div>
 
 <!-- GA4 + AIO PAGE -->
 <div class="page" id="page-ga4">
