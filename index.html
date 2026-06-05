@@ -556,6 +556,61 @@
     text-transform: uppercase;
   }
 
+  /* Sheet embed */
+  .sheet-embed-wrap {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #fafafa;
+  }
+
+  .sheet-embed-wrap iframe {
+    width: 100%;
+    height: 420px;
+    border: none;
+    display: block;
+  }
+
+  .sheet-placeholder {
+    padding: 36px 24px;
+    text-align: center;
+    color: var(--muted);
+  }
+
+  .sheet-placeholder .ph-icon { font-size: 36px; margin-bottom: 12px; }
+  .sheet-placeholder p { font-size: 13px; margin: 4px 0; }
+  .sheet-placeholder code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+  /* Setup steps inline */
+  .setup-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .setup-step:last-child { border-bottom: none; }
+
+  .setup-num {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 50%;
+    background: var(--secondary);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .setup-step h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .setup-step p  { font-size: 12px; color: var(--muted); margin: 2px 0; }
+
   /* Page-local nav */
   .page-nav {
     display: flex;
@@ -1152,41 +1207,152 @@
   </div>
 
   <!-- 月度記錄表 -->
-  <h3 class="sub-title" id="ga4-log">📝 月度數字記錄表</h3>
+  <h3 class="sub-title" id="ga4-log">📊 月度自動化儀表板</h3>
+
+  <!-- 自動化說明 -->
+  <div class="content-card" style="border-left:4px solid var(--secondary);">
+    <p style="font-weight:600;font-size:14px;margin-bottom:12px;">🤖 自動化覆蓋範圍</p>
+    <table>
+      <tr><th>指標來源</th><th>指標項目</th><th>自動化方式</th></tr>
+      <tr><td>GA4</td><td>Engagement Rate、AI Referral、參與時間、Scroll Depth</td><td>✅ Apps Script 每月 1 日自動拉取</td></tr>
+      <tr><td>GSC</td><td>曝光、點擊、CTR、Rich Result 頁數、索引覆蓋率、品牌查詢</td><td>✅ Apps Script 每月 1 日自動拉取</td></tr>
+      <tr><td>手動</td><td>FAQ Schema 覆蓋篇數、Perplexity 引用率、AIO 評分</td><td>📝 每月填入（3 個欄位）</td></tr>
+    </table>
+  </div>
+
+  <!-- Google Sheet embed -->
   <div class="content-card">
-    <p>每月 1 日填入，對照上月判斷趨勢。趨勢欄填：<strong>↑ 上升</strong> ｜ <strong>→ 持平</strong> ｜ <strong>↓ 下降</strong></p>
+    <p style="font-size:13px;font-weight:600;margin-bottom:8px;">📈 即時儀表板（設定完成後自動顯示）</p>
+
+    <!-- 設定完成後，將下方 YOUR_SHEET_EMBED_URL 換成你的 Google Sheet 發布網址 -->
+    <div class="sheet-embed-wrap" id="sheet-embed-wrap">
+      <div class="sheet-placeholder" id="sheet-placeholder">
+        <div class="ph-icon">📋</div>
+        <p><strong>尚未連結 Google Sheet</strong></p>
+        <p>完成下方「自動化設定步驟」後，在此貼上 Sheet 的發布網址即可自動顯示。</p>
+        <p style="margin-top:12px;">已完成設定？在此頁面原始碼中搜尋 <code>YOUR_SHEET_EMBED_URL</code> 並替換。</p>
+      </div>
+      <!-- 設定完成後取消以下這行的註解，並替換網址 -->
+      <!-- <iframe src="YOUR_SHEET_EMBED_URL&rm=minimal&headers=false&gid=0&range=A1:R30"></iframe> -->
+    </div>
+  </div>
+
+  <!-- 手動補充欄（只剩 3 項） -->
+  <div class="content-card">
+    <p style="font-size:13px;font-weight:600;margin-bottom:8px;">📝 手動補充（每月只需填這 3 欄）</p>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">其餘 10 項指標已由 Apps Script 自動寫入 Google Sheet。</p>
     <div style="overflow-x:auto;">
       <table class="monthly-table">
         <tr>
-          <th style="min-width:220px;">指標</th>
-          <th style="min-width:130px;">目標值</th>
-          <th style="min-width:80px;">___月</th>
-          <th style="min-width:80px;">___月</th>
-          <th style="min-width:80px;">___月</th>
-          <th style="min-width:60px;">趨勢</th>
+          <th style="min-width:200px;">指標</th>
+          <th style="min-width:120px;">目標值</th>
+          <th style="min-width:90px;">___月</th>
+          <th style="min-width:90px;">___月</th>
+          <th style="min-width:90px;">___月</th>
         </tr>
-        <tr class="monthly-section"><td colspan="6">GSC — shengtingbio.com</td></tr>
-        <tr><td>總曝光數</td><td>月環比 +10%</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>總點擊數</td><td>月環比 +10%</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>平均 CTR</td><td>&gt; 3%</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>Rich Result 曝光頁數 <span class="tag">①</span></td><td>月環比成長</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>文章索引覆蓋率 <span class="tag">⑥</span></td><td>&gt; 95%</td><td></td><td></td><td></td><td></td></tr>
-        <tr class="monthly-section"><td colspan="6">GSC — yardley.tw</td></tr>
-        <tr><td>品牌查詢點擊數（苼莛相關）</td><td>月環比 +5%</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>Total Impressions</td><td>月環比成長</td><td></td><td></td><td></td><td></td></tr>
-        <tr class="monthly-section"><td colspan="6">GA4</td></tr>
-        <tr><td>Organic Engagement Rate</td><td>&gt; 55%</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>AI Referral Sessions（Perplexity 等）</td><td>月環比成長</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>FAQ 文章平均參與時間（秒）<span class="tag">②</span></td><td>未優化文章 +20%</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>90% Scroll Rate <span class="tag">③</span></td><td>&gt; 40%</td><td></td><td></td><td></td><td></td></tr>
-        <tr class="monthly-section"><td colspan="6">手動測試</td></tr>
-        <tr><td>FAQ Schema 覆蓋篇數 <span class="tag">④</span></td><td>累積至 50 篇</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>Perplexity 引用率（X / 10 題）<span class="tag">⑤</span></td><td>≥ 6 / 10</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>AIO 評分（yardley）</td><td>目標 9 / 10</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>AIO 評分（shengtingbio）</td><td>維持 9 / 10</td><td></td><td></td><td></td><td></td></tr>
+        <tr>
+          <td>FAQ Schema 覆蓋篇數 <span class="tag">④</span></td>
+          <td>累積至 50 篇</td>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>Perplexity 引用率（X / 10 題）<span class="tag">⑤</span></td>
+          <td>≥ 6 / 10</td>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>AIO 評分（兩站平均 / 10）</td>
+          <td>目標 9 / 10</td>
+          <td></td><td></td><td></td>
+        </tr>
       </table>
     </div>
-    <div class="info-box" style="margin-top:12px;">📌 標有 <span class="tag">①</span>–<span class="tag">⑥</span> 的指標對應上方「6 項進階量化指標」各卡片的取得方式。</div>
+  </div>
+
+  <!-- 自動化設定教學 -->
+  <div class="content-card">
+    <p style="font-size:15px;font-weight:700;margin-bottom:16px;">⚙️ 自動化設定步驟（一次設定，永久自動）</p>
+
+    <div class="setup-step">
+      <div class="setup-num">1</div>
+      <div>
+        <h4>建立 Google Sheet</h4>
+        <p>前往 <strong>sheets.google.com</strong> → 新增試算表 → 命名為「SEO月度追蹤」</p>
+      </div>
+    </div>
+
+    <div class="setup-step">
+      <div class="setup-num">2</div>
+      <div>
+        <h4>開啟 Apps Script</h4>
+        <p>在 Google Sheet 上方選單點「擴充功能」→「Apps Script」→ 進入程式碼編輯器</p>
+      </div>
+    </div>
+
+    <div class="setup-step">
+      <div class="setup-num">3</div>
+      <div>
+        <h4>貼上自動化腳本</h4>
+        <p>將 <code>月度追蹤腳本.gs</code>（已在本機同資料夾）的全部內容貼入編輯器，取代原有程式碼</p>
+      </div>
+    </div>
+
+    <div class="setup-step">
+      <div class="setup-num">4</div>
+      <div>
+        <h4>填入你的 ID</h4>
+        <p>修改腳本最上方「設定區」的 3 個值：</p>
+        <table style="margin-top:6px;">
+          <tr><th>變數</th><th>去哪裡找</th></tr>
+          <tr><td><code>GA4_PROPERTY_ID</code></td><td>GA4 → 管理 → 在網址列看 /p<strong>數字</strong>，填那串數字</td></tr>
+          <tr><td><code>GSC_SHENGTINGBIO</code></td><td>GSC 左上角顯示的完整網址（含 https://）</td></tr>
+          <tr><td><code>GSC_YARDLEY</code></td><td>同上，yardley.tw 的 GSC 網址</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="setup-step">
+      <div class="setup-num">5</div>
+      <div>
+        <h4>啟用 API 服務</h4>
+        <p>左側選單點「服務」→ 分別加入：</p>
+        <ul style="margin-top:4px;">
+          <li><strong>Google Analytics Data API</strong>（搜尋 analyticsdata）</li>
+          <li><strong>Google Search Console API</strong>（搜尋 searchconsole）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="setup-step">
+      <div class="setup-num">6</div>
+      <div>
+        <h4>執行授權並測試</h4>
+        <p>選擇函式 <code>runMonthlyReport</code> → 點「▷ 執行」→ 按照提示授權 Google 帳號</p>
+        <p>執行成功後 Sheet 會自動出現表頭和本月資料行。</p>
+      </div>
+    </div>
+
+    <div class="setup-step">
+      <div class="setup-num">7</div>
+      <div>
+        <h4>設定每月自動觸發器</h4>
+        <p>選擇函式 <code>setup</code> → 點「▷ 執行」</p>
+        <p>完成後每月 1 日 09:00 會自動執行，不需再手動操作。</p>
+      </div>
+    </div>
+
+    <div class="setup-step">
+      <div class="setup-num">8</div>
+      <div>
+        <h4>嵌入 Sheet 到此頁面</h4>
+        <p>在 Google Sheet 點「檔案」→「共用」→「發布到網路」→ 選「試算表」→「以網頁發布」→ 複製網址</p>
+        <p>在本機 <code>index.html</code> 搜尋 <code>YOUR_SHEET_EMBED_URL</code>，替換成複製的網址，再 push 到 GitHub 即完成。</p>
+      </div>
+    </div>
+
+    <div class="verify-box" style="margin-top:8px;">
+      <strong>✅ 完成後效果</strong>每月 1 日腳本自動執行 → 數字寫入 Sheet → 此頁面自動顯示最新資料。你每月只需要填 Perplexity 引用率、FAQ 篇數、AIO 評分 3 個欄位。
+    </div>
   </div>
 
   <!-- 設定教學 -->
