@@ -1424,7 +1424,29 @@
     <p><strong>為什麼要做？</strong><br>Meta Description 是 Google 搜尋結果標題下方的灰色說明文字。設定後點擊率提升 15-30%，也是 AI 抓取頁面摘要的第一來源。</p>
   </div>
 
-  <div class="warning-box">🚨 <strong>2026-06-18 curl 實測發現嚴重 bug：</strong>商品頁（尤其組合包，如「618購物節🎉巔峰代謝女神組」）的 <code>&lt;meta name="description"&gt;</code> 內容是把組合內所有商品的 FAQ 全文（每商品17題）直接串接寫入，單頁長達近6000字，完全不是120-160字的摘要。本步驟先處理首頁/分類頁，但<strong>商品頁的這個bug要先找到源頭再處理</strong>：很可能是商品頁範本（liquid）裡的description欄位被設定成抓取FAQ App的資料，建議到「網路商店→主題→編輯HTML/CSS」搜尋商品頁範本中是否有把FAQ內容指派給description或og:description的程式碼，改成只抓商品本身的簡短介紹欄位。</div>
+  <div class="warning-box">🚨 <strong>2026-06-18 curl 實測發現嚴重 bug（已找到根本原因）：</strong>商品頁（尤其組合包，如「618購物節🎉巔峰代謝女神組」）的 <code>&lt;meta name="description"&gt;</code>、<code>og:description</code>、Product Schema 的 <code>description</code> 欄位，三處內容<strong>完全相同</strong>，都是商品「商品描述」欄位的原始 FAQ 全文（單頁近6000字）。確認方式：在 Product Schema JSON 裡看到 <code>"description":"FAQ 01｜..."</code>，跟商品描述欄位是同一份資料。<strong>根本原因：</strong>佈景主題範本把 <code>product.description</code> 直接套用到這三個欄位，沒有加任何截斷過濾器，商品描述多長 meta 就多長。這是全站性範本問題，不是單一商品的個案。</div>
+
+  <div class="step">
+    <div class="step-header"><div class="step-num">0</div><h3>🔧 修復步驟：在範本加截斷過濾器（先做這步）</h3></div>
+    <div class="step-content">
+      <ol>
+        <li>進「網路商店」→「主題」→「編輯 HTML/CSS」</li>
+        <li>用搜尋功能找關鍵字 <code>product.description</code>，通常會在 <code>layout/theme.liquid</code> 或 <code>snippets/seo-meta.liquid</code> 之類的檔案裡</li>
+        <li>找到類似這樣、<strong>沒有截斷</strong>的程式碼（bug 來源）：</li>
+      </ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;meta name="description" content="{{ product.description | strip_html }}" /&gt;
+&lt;meta property="og:description" content="{{ product.description | strip_html }}" /&gt;</pre>
+      <ol start="4"><li>改成加上 <code>truncatewords: 30</code>：</li></ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>&lt;meta name="description" content="{{ product.description | strip_html | truncatewords: 30 }}" /&gt;
+&lt;meta property="og:description" content="{{ product.description | strip_html | truncatewords: 30 }}" /&gt;</pre>
+      <ol start="5"><li>如果 Product Schema（JSON-LD）裡也有 <code>"description": "{{ product.description | strip_html | json }}"</code>，同樣改成：</li></ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>"description": "{{ product.description | strip_html | truncatewords: 30 | json }}"</pre>
+      <div class="warning-box">⚠️ 只改 <code>&lt;head&gt;</code> 裡 meta/og/schema 這三處，<strong>不要動商品頁正文（body）顯示 FAQ 的那一段</strong>，正文內容要保留給顧客看。</div>
+      <ol start="6"><li>儲存後，用以下指令驗證任一商品頁長度是否降到 160 字左右：</li></ol>
+      <pre><button class="copy-btn" onclick="copyCode(this)">複製</button>curl -sL "https://www.yardley.tw/products/[任一商品]" | grep -o '&lt;meta name="description"[^&gt;]*&gt;'</pre>
+      <div class="verify-box"><strong>✅ 驗證標準</strong>所有商品頁 description 長度都在 160 字以內，且不再等於 og:description/schema 裡的 FAQ 全文</div>
+    </div>
+  </div>
 
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>登入 Shopline 後台</h3></div>
@@ -1486,7 +1508,7 @@
     <p><strong>為什麼要做？</strong><br>Open Graph 決定網址被分享到 Facebook、LINE 時顯示的預覽圖、標題和描述。沒設定就只顯示空白。</p>
   </div>
 
-  <div class="warning-box">🚨 <strong>2026-06-18 curl 實測：</strong>商品頁的 <code>og:description</code> 跟 Meta Description 是同一份被 FAQ 全文覆蓋的內容（近6000字），需與 Y-01/02 的 bug 一起修，源頭通常是同一個欄位。</div>
+  <div class="warning-box">🚨 <strong>2026-06-18 curl 實測：</strong>商品頁的 <code>og:description</code> 跟 Meta Description、Product Schema 的 description 三處內容完全相同，都是商品描述欄位被原樣套用、沒加截斷過濾器（根本原因 + 修復步驟與程式碼已整理在 <a onclick="showPage('y01')">Y-01/02 頁面</a>，改一次範本三處一起修好）。</div>
 
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>先確認目前狀況</h3></div>
