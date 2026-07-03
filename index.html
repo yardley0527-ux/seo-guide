@@ -799,7 +799,7 @@
         <li>Product Schema ⚠️ brand 欄位仍空白（未修復）</li>
         <li>圖片 Alt ❌ 商品頁實測 101/107 張缺失（94%，維持嚴重）</li>
         <li>分類頁/首頁商品列表 ❌ 原始 HTML 仍是 <code>{{item.product_id}}</code> 樣板字串未渲染，AI 爬蟲讀不到</li>
-        <li>商品 Title ⚠️ 商品名稱/H1已改成「年中慶購物節」（無emoji），但SEO &lt;title&gt;/og:title欄位仍是舊的「618購物節🎉」未同步更新，造成前台顯示與搜尋結果標題不一致</li>
+        <li>商品 Title ✅ 已修復！商品名稱/H1/&lt;title&gt;/og:title 4個組合商品現在三處完全一致（「年中慶購物節」，無emoji）</li>
         <li>About 頁 ❌ /pages/about 仍 302 重導回首頁，頁面不存在</li>
       </ul>
     </div>
@@ -833,7 +833,7 @@
       <tr><td>yardley.tw</td><td>Product Schema</td><td>⚠️ 確認存在，brand 欄位仍為空字串，未修復</td></tr>
       <tr><td>yardley.tw</td><td>商品頁圖片 Alt</td><td>❌ 抽查 1 頁 107 張圖中 101 張缺失（94%），持續嚴重</td></tr>
       <tr><td>yardley.tw</td><td>分類頁商品列表渲染</td><td>❌ 原始 HTML 仍為 <code>{{item.product_id}}</code> 等樣板字串，未修復</td></tr>
-      <tr><td>yardley.tw</td><td>商品 Title</td><td>⚠️ 商品名稱/H1已修正為「年中慶購物節」（無emoji），但 &lt;title&gt;/og:title 仍是舊值「618購物節🎉」未同步，前台與SEO標題不一致</td></tr>
+      <tr><td>yardley.tw</td><td>商品 Title</td><td>✅ 已修復：4個組合商品的商品名稱/H1/&lt;title&gt;/og:title 現在完全一致（「年中慶購物節」，emoji已移除）</td></tr>
       <tr><td>yardley.tw</td><td>About 頁面</td><td>❌ /pages/about 302 重導回首頁，頁面仍不存在</td></tr>
       <tr><td>shengtingbio.com</td><td>H1 標籤（文章頁）</td><td>✅ 確認</td></tr>
       <tr><td>shengtingbio.com</td><td>URL 英文化</td><td>✅ 全站均為英文 slug</td></tr>
@@ -882,13 +882,6 @@
     <div class="problem-item">
       <div class="problem-icon">🏷️</div>
       <div>
-        <h4>yardley.tw 商品名稱與SEO標題不同步（部分修復）</h4>
-        <p>4個組合商品的商品名稱/H1已改成「年中慶購物節」（無emoji），但SEO &lt;title&gt;、og:title 欄位還是舊的「618購物節🎉」，前台顯示跟Google搜尋結果/社群分享標題會不一致，需請Shopline後台把這兩處欄位一起同步更新</p>
-      </div>
-    </div>
-    <div class="problem-item">
-      <div class="problem-icon">🏷️</div>
-      <div>
         <h4>yardley.tw Product brand 欄位空白 + About頁不存在</h4>
         <p>Product Schema 的 brand 為空字串；/pages/about 仍302重導回首頁，品牌可驗證性不足</p>
       </div>
@@ -908,7 +901,7 @@
       </div>
     </div>
   </div>
-  <div class="verify-box" style="margin-top:12px">✅ <strong>2026-07-03 確認已解決（移出待辦）：</strong>shengtingbio.com 重複 Meta/OG/Schema 標籤問題、文章摘要未前置、作者頁/Person Schema 未建立 —— 這 3 項均已修復完成。</div>
+  <div class="verify-box" style="margin-top:12px">✅ <strong>2026-07-03 確認已解決（移出待辦）：</strong>shengtingbio.com 重複 Meta/OG/Schema 標籤問題、文章摘要未前置、作者頁/Person Schema 未建立；yardley.tw 4個組合商品的商品名稱/H1/&lt;title&gt;/og:title 不同步問題 —— 以上均已修復完成。</div>
 
   <h2 class="section-title">📅 行動計畫（2026-05-29 更新）</h2>
   <div class="content-card">
@@ -947,6 +940,18 @@
 <!-- LOG PAGE -->
 <div class="page" id="page-log">
   <h2 class="section-title">📋 執行紀錄</h2>
+
+  <div class="content-card">
+    <h3 class="sub-title">2026-07-03（追加）｜yardley.tw 商品名稱/SEO標題不同步問題已修復</h3>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>4個組合商品的商品名稱、H1、&lt;title&gt;、og:title 已完全同步</h3></div>
+      <div class="step-content">
+        <p>今日稍早發現商品名稱/H1已改成「年中慶購物節」（無emoji），但SEO <code>&lt;title&gt;</code> 與 <code>og:title</code> 仍卡在舊值「618購物節🎉」。使用者已回頭到 Shopline 後台修改，分兩步完成：先同步文字內容（618→年中慶），再移除殘留的 emoji 🎉。重新 curl 4個組合商品確認，四處欄位（商品名稱/H1/title/og:title）現在完全一致，emoji 已清除乾淨。</p>
+        <div class="verify-box">✅ 此項移出待辦清單，不再列入待解決問題。</div>
+      </div>
+    </div>
+  </div>
 
   <div class="content-card">
     <h3 class="sub-title">2026-07-03｜curl 實測重新驗證，shengtingbio.com 重大改善</h3>
@@ -2362,7 +2367,7 @@ h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</p
   <h2 class="section-title">✏️ Y-09｜Title 標籤優化 <span class="priority priority-medium">高優先</span></h2>
   <div class="info-box">平台：Shopline ｜ 預計時間：30 分鐘 ｜ 難度：⭐</div>
 
-  <div class="warning-box">⚠️ <strong>2026-07-03 curl 實測發現：</strong>4個組合商品（如「巔峰代謝女神組」）的商品名稱/H1已經改成「年中慶購物節」（無emoji），但 <code>&lt;title&gt;</code> 與 <code>og:title</code> 欄位還停留在舊值「618購物節🎉」沒有同步更新。建議請 Shopline 後台檢查這4個組合商品的 SEO 標題欄位，跟商品名稱欄位改成一致。</div>
+  <div class="verify-box">✅ <strong>2026-07-03 已修復：</strong>4個組合商品（巔峰代謝女神組、全方位輕盈女神組、不囤積輕盈組、私密輕盈養成組）的商品名稱/H1/<code>&lt;title&gt;</code>/<code>og:title</code> 現已完全同步，統一為「年中慶購物節」（emoji 也已移除）。原本發現的欄位不同步問題已解決。</div>
 
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>各頁面 Title 建議</h3></div>
