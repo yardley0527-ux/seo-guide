@@ -783,115 +783,125 @@
 <div class="page active" id="page-overview">
   <div class="hero">
     <h2>SEO + AIO 改善分析報告</h2>
-    <p>分析日期：2026-05-28 ｜ 最後更新：2026-06-18 ｜ yardley.tw + shengtingbio.com</p>
+    <p>分析日期：2026-05-28 ｜ 最後更新：2026-07-03 ｜ yardley.tw + shengtingbio.com</p>
   </div>
 
-  <h2 class="section-title">🎯 AIO 可引用性評分（2026-06-18 curl 實測）</h2>
+  <h2 class="section-title">🎯 AIO 可引用性評分（2026-07-03 curl 實測）</h2>
   <div class="score-grid">
     <div class="score-card">
       <h4>yardley.tw</h4>
       <div class="score" style="color:#c0392b">5<span> / 10</span></div>
       <ul class="check-list">
-        <li>首頁 H1 ❌ 完全沒有 H1，只有 1 個 H2</li>
-        <li>Meta Description ❌ 商品頁被 FAQ 全文覆蓋（近 6000 字／頁）</li>
-        <li>Open Graph ❌ og:description 同樣被 FAQ 全文覆蓋</li>
-        <li>Organization Schema ✅</li>
-        <li>Product Schema ✅（brand 欄位待查）</li>
-        <li>圖片 Alt ❌ 商品頁實測 93/98 張缺失（95%）</li>
-        <li>分類頁商品列表 ❌ 原始 HTML 是 <code>{{item.product_id}}</code> 樣板字串未渲染，AI 爬蟲讀不到</li>
-        <li>商品 Title ❌ 多筆用檔期活動命名（如「618購物節🎉」），含 emoji</li>
+        <li>首頁 H1 ✅ 新發現已存在（1個，但 class="visually-hidden" 視覺隱藏，AI爬蟲仍可讀原始HTML）</li>
+        <li>Meta Description ❌ 商品頁仍被 FAQ 全文覆蓋（實測5560字／頁，2週多未修復，同一嚴重程度）</li>
+        <li>Open Graph ❌ og:description 同樣被 FAQ 全文覆蓋（同上，未修復）</li>
+        <li>Organization Schema 🆕❌ 新發現重複宣告2次！內容不同（Shopline主題預設版 vs 自行加的完整版）</li>
+        <li>Product Schema ⚠️ brand 欄位仍空白（未修復）</li>
+        <li>圖片 Alt ❌ 商品頁實測 101/107 張缺失（94%，維持嚴重）</li>
+        <li>分類頁/首頁商品列表 ❌ 原始 HTML 仍是 <code>{{item.product_id}}</code> 樣板字串未渲染，AI 爬蟲讀不到</li>
+        <li>商品 Title ❌ 仍用檔期活動命名（如「618購物節🎉」），含 emoji（未修復）</li>
+        <li>About 頁 ❌ /pages/about 仍 302 重導回首頁，頁面不存在</li>
       </ul>
     </div>
     <div class="score-card">
       <h4>shengtingbio.com</h4>
-      <div class="score" style="color:#e67e22">7<span> / 10</span></div>
+      <div class="score" style="color:#2d9d5f">9<span> / 10</span></div>
       <ul class="check-list">
         <li>H1 標籤（文章頁）✅</li>
-        <li>Meta Description ⚠️ 內容存在，但首頁與文章頁都同時輸出 2 組互相矛盾的 description</li>
-        <li>Open Graph ⚠️ 同樣重複輸出 2 組 og:title/og:description（內容不同）</li>
-        <li>BlogPosting / Organization / BreadcrumbList Schema ⚠️ 每種都重複宣告 2 次（AIOSEO @graph + 額外獨立 script）</li>
-        <li>圖片 Alt ⚠️ 抽查文章頁仍有 10/66 張缺失（85% 覆蓋，未達 95% 標準）</li>
-        <li>FAQ Schema ❌ 仍未加（0 篇）</li>
+        <li>Meta Description ✅ 重複問題已修復！抽查首頁+2篇文章都只剩1組乾淨的 description</li>
+        <li>Open Graph ✅ 重複問題已修復！只剩1組 og:title/og:description</li>
+        <li>BlogPosting / Organization / BreadcrumbList Schema ✅ 重複問題已修復！只剩1組 AIOSEO @graph 輸出</li>
+        <li>Person Schema + 作者頁 ✅ 新完成！/author/user/ 已有實質簡介，提及PubMed/Cochrane審核流程</li>
+        <li>文章摘要前置 ✅ 新完成！開頭第一段直接給數據化答案（如「每日補充4-12mg蝦紅素能改善視網膜功能」）</li>
+        <li>學術參考文獻 ✅ 內文已有 PubMed Central（pmc.ncbi.nlm.nih.gov）研究連結</li>
+        <li>圖片 Alt ⚠️ 抽查2篇文章仍有 10/66、11/76 張缺失（約85%覆蓋，未達95%標準，無進展）</li>
+        <li>FAQ Schema ❌ 仍未加（頁面雖有FAQ文字內容但無markup，無進展）</li>
         <li>URL 英文化 ✅</li>
       </ul>
     </div>
   </div>
-  <div class="warning-box">⚠️ 2026-06-18 重新 curl 實測發現本頁多項「✅已確認」與實際狀況不符，分數已下修並在下方「執行紀錄」與各檢查項詳情頁補充證據，請依新發現重新排序優先處理順序。</div>
+  <div class="warning-box" style="background:#e8f5e9;border-color:#2d9d5f;color:#1b5e34">🎉 2026-07-03 重新 curl 實測：shengtingbio.com 上次發現的「全站重複 Meta/OG/Schema」問題已全部修復，分數從 7/10 大幅提升至 9/10！剩餘只有 FAQ Schema 與圖片 Alt 兩項。yardley.tw 則喜憂參半：H1 缺失已修復，但新發現 Organization Schema 出現重複宣告，且最高優先的 Meta/OG Description 爆量 bug 仍完全未修復（2週多無進展），分數維持 5/10。</div>
 
-  <h2 class="section-title">✅ 線上驗證完成項目（2026-06-18 curl 實測更新）</h2>
+  <h2 class="section-title">✅ 線上驗證完成項目（2026-07-03 curl 實測更新）</h2>
   <div class="content-card">
     <table>
       <tr><th>網站</th><th>項目</th><th>實測狀態</th></tr>
-      <tr><td>yardley.tw</td><td>首頁 H1 標籤</td><td>❌ 原始 HTML 內完全沒有 &lt;h1&gt;，只找到 1 個 &lt;h2&gt;</td></tr>
-      <tr><td>yardley.tw</td><td>商品頁 Meta Description</td><td>❌ 嚴重 bug：被 FAQ App 全文覆蓋，單頁近 6000 字（應為 120-160 字）</td></tr>
-      <tr><td>yardley.tw</td><td>商品頁 Open Graph og:description</td><td>❌ 與 Meta Description 同一份爆量內容</td></tr>
-      <tr><td>yardley.tw</td><td>Organization Schema（含統編、地址、電話）</td><td>✅ 確認</td></tr>
-      <tr><td>yardley.tw</td><td>Product Schema</td><td>⚠️ 確認存在，brand 欄位待逐一查核</td></tr>
-      <tr><td>yardley.tw</td><td>商品頁圖片 Alt</td><td>❌ 抽查 1 頁 98 張圖中 93 張缺失（95%），遠高於先前記錄的 41/57</td></tr>
-      <tr><td>yardley.tw</td><td>分類頁商品列表渲染</td><td>❌ 原始 HTML 為 <code>{{item.product_id}}</code> 等樣板字串，需 JS 才能顯示，不執行 JS 的 AI 爬蟲讀不到</td></tr>
-      <tr><td>yardley.tw</td><td>商品 Title</td><td>❌ 部份商品（組合包）用檔期活動命名＋emoji，如「618購物節🎉巔峰代謝女神組」</td></tr>
+      <tr><td>yardley.tw</td><td>首頁 H1 標籤</td><td>✅ 新發現已存在：原始 HTML 內有 1 個 &lt;h1&gt;（class="visually-hidden"，視覺隱藏但AI爬蟲可讀）</td></tr>
+      <tr><td>yardley.tw</td><td>商品頁 Meta Description</td><td>❌ 嚴重 bug 持續未修復：被 FAQ App 全文覆蓋，實測 5560 字（應為 120-160 字）</td></tr>
+      <tr><td>yardley.tw</td><td>商品頁 Open Graph og:description</td><td>❌ 與 Meta Description 同一份爆量內容，未修復</td></tr>
+      <tr><td>yardley.tw</td><td>Organization Schema（含統編、地址、電話）</td><td>🆕❌ 新發現重複宣告 2 次：簡版（僅name/url/logo，疑似Shopline主題預設殘留）+ 完整版（含統編/聯絡資訊）</td></tr>
+      <tr><td>yardley.tw</td><td>Product Schema</td><td>⚠️ 確認存在，brand 欄位仍為空字串，未修復</td></tr>
+      <tr><td>yardley.tw</td><td>商品頁圖片 Alt</td><td>❌ 抽查 1 頁 107 張圖中 101 張缺失（94%），持續嚴重</td></tr>
+      <tr><td>yardley.tw</td><td>分類頁商品列表渲染</td><td>❌ 原始 HTML 仍為 <code>{{item.product_id}}</code> 等樣板字串，未修復</td></tr>
+      <tr><td>yardley.tw</td><td>商品 Title</td><td>❌ 仍用檔期活動命名＋emoji，如「618購物節🎉巔峰代謝女神組」，未修復</td></tr>
+      <tr><td>yardley.tw</td><td>About 頁面</td><td>❌ /pages/about 302 重導回首頁，頁面仍不存在</td></tr>
       <tr><td>shengtingbio.com</td><td>H1 標籤（文章頁）</td><td>✅ 確認</td></tr>
       <tr><td>shengtingbio.com</td><td>URL 英文化</td><td>✅ 全站均為英文 slug</td></tr>
-      <tr><td>shengtingbio.com</td><td>首頁 / 文章頁 Meta Description</td><td>⚠️ 內容有寫入，但每頁同時輸出 2 組互相矛盾的 &lt;meta name="description"&gt;</td></tr>
-      <tr><td>shengtingbio.com</td><td>Open Graph</td><td>⚠️ 每頁重複輸出 2 組 og:title / og:description，內容不一致（疑似舊 theme 輸出未隨換 AIOSEO 清除）</td></tr>
-      <tr><td>shengtingbio.com</td><td>結構化資料（Organization / BreadcrumbList / BlogPosting）</td><td>⚠️ 每種都重複宣告 2 次：1 次在 AIOSEO 的 @graph 內，1 次是獨立 script</td></tr>
-      <tr><td>shengtingbio.com</td><td>圖片 Alt 屬性</td><td>⚠️ 抽查單篇文章 66 張圖仍有 10 張缺失（85% 覆蓋），未達 95% 目標</td></tr>
-      <tr><td>shengtingbio.com</td><td>generator 標籤</td><td>📌 確認為 All in One SEO (AIOSEO) 4.6.2，非 Yoast（清單舊稱 S-01 已過時，AIOSEO 已在用）</td></tr>
+      <tr><td>shengtingbio.com</td><td>首頁 / 文章頁 Meta Description</td><td>✅ 已修復！抽查首頁+2篇文章都只剩 1 組乾淨 description</td></tr>
+      <tr><td>shengtingbio.com</td><td>Open Graph</td><td>✅ 已修復！只剩 1 組 og:title / og:description</td></tr>
+      <tr><td>shengtingbio.com</td><td>結構化資料（Organization / BreadcrumbList / BlogPosting）</td><td>✅ 已修復！只剩 1 組 AIOSEO @graph 輸出（新增 Person schema）</td></tr>
+      <tr><td>shengtingbio.com</td><td>Person Schema + 作者頁</td><td>✅ 新完成：/author/user/ 已有實質簡介（PubMed/Cochrane 審核流程說明）</td></tr>
+      <tr><td>shengtingbio.com</td><td>文章摘要前置</td><td>✅ 新完成：開頭第一段直接給數據化答案</td></tr>
+      <tr><td>shengtingbio.com</td><td>學術參考文獻</td><td>✅ 內文已有 PubMed Central（pmc.ncbi.nlm.nih.gov）研究連結</td></tr>
+      <tr><td>shengtingbio.com</td><td>圖片 Alt 屬性</td><td>⚠️ 抽查 2 篇文章仍有 10/66、11/76 張缺失（約85%覆蓋），未達 95% 目標，無進展</td></tr>
+      <tr><td>shengtingbio.com</td><td>FAQ Schema</td><td>❌ 仍未加入（頁面雖有FAQ文字但無markup），無進展</td></tr>
+      <tr><td>shengtingbio.com</td><td>generator 標籤</td><td>📌 確認仍為 All in One SEO (AIOSEO) 4.6.2</td></tr>
     </table>
   </div>
 
-  <h2 class="section-title">🔴 剩餘待解決問題（依嚴重度排序，2026-06-18 更新）</h2>
+  <h2 class="section-title">🔴 剩餘待解決問題（依嚴重度排序，2026-07-03 更新）</h2>
   <div class="problems-grid">
     <div class="problem-item">
       <div class="problem-icon">🚨</div>
       <div>
-        <h4>yardley.tw 商品頁 Meta/OG Description 爆量 bug（最高優先）</h4>
-        <p>FAQ App 把整篇FAQ文字（近6000字、跨多個組合商品）寫進 description 欄位，等於完全沒有摘要功能，需找 Shopline 後台 FAQ App 設定切斷與 description 欄位的連動</p>
+        <h4>yardley.tw 商品頁 Meta/OG Description 爆量 bug（最高優先，2週多無進展）</h4>
+        <p>FAQ App 把整篇FAQ文字（實測5560字、跨多個組合商品）寫進 description 欄位，等於完全沒有摘要功能，需找 Shopline 後台 FAQ App 設定切斷與 description 欄位的連動。<strong>此為06-18發現的最高優先項目，至今仍未修復。</strong></p>
       </div>
     </div>
     <div class="problem-item">
       <div class="problem-icon">🖼️</div>
       <div>
-        <h4>yardley.tw 商品頁圖片 Alt 大量缺失（95%）</h4>
-        <p>遠比先前記錄的41/57嚴重，需逐一補上商品圖片Alt，這是流量主力頁面</p>
+        <h4>yardley.tw 商品頁圖片 Alt 大量缺失（94%）</h4>
+        <p>持續嚴重，需逐一補上商品圖片Alt，這是流量主力頁面</p>
       </div>
     </div>
     <div class="problem-item">
-      <div class="problem-icon">⚠️</div>
+      <div class="problem-icon">🆕</div>
       <div>
-        <h4>yardley.tw 首頁 H1 缺失 + 分類頁未渲染</h4>
-        <p>首頁完全沒有H1；分類頁商品列表在原始HTML是Vue樣板字串，AI爬蟲看到空殼</p>
+        <h4>yardley.tw Organization Schema 重複宣告（新發現）</h4>
+        <p>首頁與商品頁都同時輸出2組Organization schema：一組僅有name/url/logo（疑似Shopline主題內建預設，未清除），另一組是先前加的完整版（含統編、聯絡資訊）。需請工程師找出主題預設schema的輸出位置並移除，只保留完整版</p>
       </div>
     </div>
     <div class="problem-item">
-      <div class="problem-icon">🔁</div>
+      <div class="problem-icon">📦</div>
       <div>
-        <h4>shengtingbio.com 重複/衝突的 Meta、OG、Schema 標籤</h4>
-        <p>每頁都有2組description、2組og標籤、2次schema宣告，需找出舊theme殘留的輸出源頭並移除，只保留AIOSEO一份</p>
+        <h4>yardley.tw 分類頁商品列表未渲染 + 商品Title含檔期活動命名</h4>
+        <p>分類頁商品列表在原始HTML是Vue樣板字串，AI爬蟲看到空殼；商品標題仍用「618購物節🎉」等活動命名+emoji，不利AI理解商品本質</p>
       </div>
     </div>
     <div class="problem-item">
       <div class="problem-icon">🏷️</div>
       <div>
-        <h4>yardley.tw Product brand 欄位空白</h4>
-        <p>Product Schema 的 brand 為空字串，AI 無法識別品牌歸屬</p>
+        <h4>yardley.tw Product brand 欄位空白 + About頁不存在</h4>
+        <p>Product Schema 的 brand 為空字串；/pages/about 仍302重導回首頁，品牌可驗證性不足</p>
       </div>
     </div>
     <div class="problem-item">
       <div class="problem-icon">❓</div>
       <div>
         <h4>shengtingbio.com FAQ Schema 未加</h4>
-        <p>前 10 篇文章加 FAQ Schema 可讓 AIO 引用機率 +60%</p>
+        <p>前 10 篇文章加 FAQ Schema 可讓 AIO 引用機率 +60%，文章內文已有FAQ文字內容，只差markup</p>
       </div>
     </div>
     <div class="problem-item">
-      <div class="problem-icon">✍️</div>
+      <div class="problem-icon">🖼️</div>
       <div>
-        <h4>shengtingbio.com 文章摘要未優化</h4>
-        <p>文章開頭加一句話核心答案，提升 AI 直接引用機率</p>
+        <h4>shengtingbio.com 圖片 Alt 覆蓋率未達標（85%）</h4>
+        <p>抽查2篇文章都約85%覆蓋，未達95%目標，無進展，建議重新全站掃描找出缺失清單</p>
       </div>
     </div>
   </div>
+  <div class="verify-box" style="margin-top:12px">✅ <strong>2026-07-03 確認已解決（移出待辦）：</strong>shengtingbio.com 重複 Meta/OG/Schema 標籤問題、文章摘要未前置、作者頁/Person Schema 未建立 —— 這 3 項均已修復完成。</div>
 
   <h2 class="section-title">📅 行動計畫（2026-05-29 更新）</h2>
   <div class="content-card">
@@ -930,6 +940,61 @@
 <!-- LOG PAGE -->
 <div class="page" id="page-log">
   <h2 class="section-title">📋 執行紀錄</h2>
+
+  <div class="content-card">
+    <h3 class="sub-title">2026-07-03｜curl 實測重新驗證，shengtingbio.com 重大改善</h3>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>shengtingbio.com：重複 Meta/OG/Schema 問題已全部修復</h3></div>
+      <div class="step-content">
+        <p>抽查首頁 + 2 篇文章（astaxanthin-research、maillard-reaction），<code>&lt;meta name="description"&gt;</code>、<code>og:title</code>/<code>og:description</code>、<code>application/ld+json</code> schema 都只剩 <strong>1 組</strong>，06-18 發現的「每頁重複2組」問題已消失。Schema 內容為單一 AIOSEO <code>@graph</code>，包含 BlogPosting、BreadcrumbList、Organization、<strong>Person（新增）</strong>、WebPage、WebSite。</p>
+        <div class="verify-box">✅ 06-18 標記的最高優先問題之一已解決，無需再追查舊 theme 殘留輸出來源。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>shengtingbio.com：作者頁 + Person Schema + 文章摘要前置 + 學術引用皆已完成</h3></div>
+      <div class="step-content">
+        <p>Schema 中新增 <code>Person</code> 區塊，連結至 <code>/author/user/</code>，該頁面已有實質簡介文字（說明內容引用 PubMed、Cochrane 等資料庫、經專業人員審核）。抽查文章開頭第一段已直接給出數據化答案（例：「每日補充 4-12mg 蝦紅素能顯著改善視網膜功能」），第二段接續研究來源，符合摘要前置原則。文中也確認有 PubMed Central（pmc.ncbi.nlm.nih.gov）真實研究連結。</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#e67e22">!</div><h3>shengtingbio.com：圖片 Alt、FAQ Schema 仍無進展</h3></div>
+      <div class="step-content">
+        <p>抽查 2 篇文章圖片 Alt 覆蓋率仍約 85%（10/66、11/76 缺失），與 06-18 記錄一致，未達 95% 目標。FAQ Schema 仍未加入，文章內文雖有「常見問題 FAQ」文字段落，但 schema 的 <code>@graph</code> 中沒有 <code>FAQPage</code> 類型。</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#c0392b">!</div><h3>yardley.tw：Meta/OG Description 爆量 bug 持續未修復，2 週多無進展</h3></div>
+      <div class="step-content">
+        <p>重新抽查商品頁（probiotic-cleanse-fiber-powder-combo-belgian-super-metabolism-essence-tablets-combo），<code>&lt;meta name="description"&gt;</code> 與 <code>og:description</code> 實測 5560 字，內容仍是 FAQ 全文（「FAQ 01｜...FAQ 02｜...」），與 06-18 記錄的嚴重程度相同。商品頁圖片 Alt 抽查 107 張中 101 張缺失（94%），分類頁商品列表原始 HTML 仍是 <code>{{item.product_id}}</code> 未渲染樣板字串，商品 Title 仍用「618購物節🎉」等活動命名。</p>
+        <div class="warning-box">⚠️ 這是 06-18 標記的「最高優先」項目，至今超過 2 週未見任何修復動作，建議直接跟工程窗口追進度。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#c0392b">!</div><h3>yardley.tw：新發現 Organization Schema 重複宣告</h3></div>
+      <div class="step-content">
+        <p>首頁與商品頁的原始 HTML 都同時輸出 <strong>2 組</strong> <code>Organization</code> schema：一組只有 <code>name</code>/<code>url</code>/<code>logo</code> 三個欄位（疑似 Shopline 主題內建的預設輸出，先前未被注意到）；另一組是先前依 Y-06 教學加入的完整版，含統編（taxID）、聯絡資訊、地址。兩組同時存在會讓 Google/AI 解析時遇到重複實體宣告，建議請工程師確認主題預設 schema 的輸出位置（可能在 <code>layout/theme.liquid</code> 的其他區塊或 Shopline 系統層級），移除後只保留完整版。</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>yardley.tw：首頁 H1 已存在（新發現）</h3></div>
+      <div class="step-content">
+        <p>與 06-18 記錄的「完全沒有 H1」不同，本次實測首頁原始 HTML 內找到 1 個 <code>&lt;h1 class="visually-hidden"&gt;苼莛國際生技｜專注營養科學與健康管理的保健品牌&lt;/h1&gt;</code>。雖然視覺上被 CSS 隱藏，但 AI 爬蟲讀取原始 HTML 時可以讀到，符合 H1 結構要求。無法確認是何時修復的，可能是先前記錄誤判或期間已由工程端修正。</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#1565c0">i</div><h3>結論：分數更新</h3></div>
+      <div class="step-content">
+        <p>yardley.tw：維持 <strong>5/10</strong>（H1修復的加分被新發現的Organization Schema重複問題抵銷，且最高優先的Meta/OG爆量bug完全未處理）。shengtingbio.com：7/10 → <strong>9/10</strong>（重複標籤問題全部修復，加上作者頁、摘要前置、學術引用皆已到位，僅剩FAQ Schema與圖片Alt兩項）。</p>
+      </div>
+    </div>
+  </div>
 
   <div class="content-card">
     <h3 class="sub-title">2026-06-18｜curl 實測重新驗證，發現多項重大問題</h3>
@@ -1386,30 +1451,30 @@
   <!-- AIO 評分標準 -->
   <h3 class="sub-title" id="ga4-score">🏆 AIO 可引用性評分標準（0–10 分）</h3>
   <div class="content-card">
-    <p>每項各 1 分，滿分 10 分。每月執行 SOP 步驟 13 時對照此表重新評分。<strong>本表已依 2026-06-18 curl 實測結果更新。</strong></p>
+    <p>每項各 1 分，滿分 10 分。每月執行 SOP 步驟 13 時對照此表重新評分。<strong>本表已依 2026-07-03 curl 實測結果更新。</strong></p>
     <table>
       <tr><th>#</th><th>評分標準</th><th>yardley.tw</th><th>shengtingbio.com</th></tr>
-      <tr><td>①</td><td>H1 結構正確（每頁只有 1 個 H1，含核心關鍵字）</td><td>❌ 首頁 0 個 H1</td><td>✅</td></tr>
-      <tr><td>②</td><td>Meta Description（首頁 + 核心頁均設定，120–160 字）</td><td>❌ 商品頁被 FAQ 全文覆蓋（近6000字）</td><td>⚠️ 內容OK但每頁重複輸出2組</td></tr>
-      <tr><td>③</td><td>Organization Schema 無語法錯誤</td><td>✅</td><td>⚠️ 重複宣告2次</td></tr>
-      <tr><td>④</td><td>內容 Schema 完整無空欄（Product / BlogPosting）</td><td>⚠️ brand 欄位待查</td><td>⚠️ BlogPosting+Article重複宣告</td></tr>
-      <tr><td>⑤</td><td>FAQ Schema（重要頁面已設定）</td><td>❌ 未設定（FAQ內容有但無markup）</td><td>❌ 待加入</td></tr>
-      <tr><td>⑥</td><td>文章摘要前置（前 100 字直接回答問題）</td><td>N/A</td><td>❌ 待優化</td></tr>
-      <tr><td>⑦</td><td>E-E-A-T 訊號（作者頁 + 參考文獻 + About 頁）</td><td>❌ About 頁不存在</td><td>❌ 作者頁未建</td></tr>
-      <tr><td>⑧</td><td>圖片 Alt 完整度（&gt; 95% 有 Alt 屬性）</td><td>❌ 商品頁抽查 93/98 缺失（95%）</td><td>⚠️ 抽查文章頁 10/66 缺失（85%）</td></tr>
-      <tr><td>⑨</td><td>Open Graph 完整（og:title + og:description + og:image）</td><td>❌ og:description 同 description bug</td><td>⚠️ 重複2組，內容不一致</td></tr>
-      <tr><td>⑩</td><td>品牌可驗證性（Google Business Profile + 外部引用）</td><td>✅ 已申請</td><td>N/A</td></tr>
+      <tr><td>①</td><td>H1 結構正確（每頁只有 1 個 H1，含核心關鍵字）</td><td>✅ 新發現已有1個（視覺隱藏但爬蟲可讀）</td><td>✅</td></tr>
+      <tr><td>②</td><td>Meta Description（首頁 + 核心頁均設定，120–160 字）</td><td>❌ 商品頁仍被 FAQ 全文覆蓋（實測5560字）</td><td>✅ 已修復，剩1組乾淨description</td></tr>
+      <tr><td>③</td><td>Organization Schema 無語法錯誤</td><td>🆕❌ 新發現重複宣告2次</td><td>✅ 已修復，剩1組</td></tr>
+      <tr><td>④</td><td>內容 Schema 完整無空欄（Product / BlogPosting）</td><td>⚠️ brand 欄位仍空</td><td>✅ BlogPosting已修復剩1組</td></tr>
+      <tr><td>⑤</td><td>FAQ Schema（重要頁面已設定）</td><td>❌ 未設定（FAQ內容有但無markup）</td><td>❌ 待加入（無進展）</td></tr>
+      <tr><td>⑥</td><td>文章摘要前置（前 100 字直接回答問題）</td><td>N/A</td><td>✅ 新完成，開頭即給數據化答案</td></tr>
+      <tr><td>⑦</td><td>E-E-A-T 訊號（作者頁 + 參考文獻 + About 頁）</td><td>❌ About 頁仍不存在</td><td>✅ 作者頁+Person schema+PubMed引用已完成</td></tr>
+      <tr><td>⑧</td><td>圖片 Alt 完整度（&gt; 95% 有 Alt 屬性）</td><td>❌ 商品頁抽查 101/107 缺失（94%）</td><td>⚠️ 抽查文章頁約85%覆蓋（無進展）</td></tr>
+      <tr><td>⑨</td><td>Open Graph 完整（og:title + og:description + og:image）</td><td>❌ og:description 仍同 description bug</td><td>✅ 已修復，剩1組</td></tr>
+      <tr><td>⑩</td><td>品牌可驗證性（Google Business Profile + 外部引用）</td><td>✅ 已申請（未重新驗證，沿用06-01紀錄）</td><td>N/A</td></tr>
     </table>
     <div class="score-grid" style="margin-top:16px;">
       <div class="score-card">
         <h4>yardley.tw 當前評分</h4>
         <div class="score" style="color:#c0392b">5<span> / 10</span></div>
-        <p>Meta/OG爆量bug、首頁H1缺失、商品圖Alt嚴重缺失為最高優先；brand欄位、About頁、FAQ待補</p>
+        <p>H1缺失已修復，但新發現Organization Schema重複；最高優先的Meta/OG爆量bug、商品圖Alt仍完全未修復，2週多無進展，分數持平</p>
       </div>
       <div class="score-card">
         <h4>shengtingbio.com 當前評分</h4>
-        <div class="score" style="color:#e67e22">7<span> / 10</span></div>
-        <p>重複Meta/OG/Schema標籤需先清除源頭，再補FAQ Schema、文章摘要前置、作者頁可達9/10</p>
+        <div class="score" style="color:#2d9d5f">9<span> / 10</span></div>
+        <p>重複Meta/OG/Schema標籤已全部修復，作者頁、摘要前置、學術引用也已完成，僅剩FAQ Schema與圖片Alt兩項待補即可達10/10</p>
       </div>
     </div>
   </div>
@@ -1425,6 +1490,7 @@
   </div>
 
   <div class="warning-box">🚨 <strong>2026-06-18 curl 實測發現嚴重 bug（已找到根本原因）：</strong>商品頁（尤其組合包，如「618購物節🎉巔峰代謝女神組」）的 <code>&lt;meta name="description"&gt;</code>、<code>og:description</code>、Product Schema 的 <code>description</code> 欄位，三處內容<strong>完全相同</strong>，都是商品「商品描述」欄位的原始 FAQ 全文（單頁近6000字）。確認方式：在 Product Schema JSON 裡看到 <code>"description":"FAQ 01｜..."</code>，跟商品描述欄位是同一份資料。<strong>根本原因：</strong>佈景主題範本把 <code>product.description</code> 直接套用到這三個欄位，沒有加任何截斷過濾器，商品描述多長 meta 就多長。這是全站性範本問題，不是單一商品的個案。</div>
+  <div class="warning-box">🚨 <strong>2026-07-03 重新 curl 實測：仍未修復。</strong>同一商品頁重測，description/og:description 長度為 5560 字，同樣是 FAQ 全文，跟 06-18 記錄的嚴重程度一致。距離發現已超過 2 週，建議直接跟工程窗口確認處理進度。</div>
 
   <div class="step">
     <div class="step-header"><div class="step-num">0</div><h3>🔧 修復步驟：在範本加截斷過濾器（先做這步）</h3></div>
@@ -1569,6 +1635,7 @@
   <div class="info-box">平台：Shopline ｜ 預計時間：1-2 小時 ｜ 難度：⭐</div>
 
   <div class="warning-box">🚨 <strong>2026-06-18 curl 實測：</strong>抽查 1 個商品頁，98 張圖片中 93 張缺 alt（95% 缺失），遠比先前記錄的「41/57」嚴重。商品頁是流量主力頁面，建議優先處理，且範圍可能比預期大，先用下方 Step 2 的工具全站掃描一次確認實際缺失總數。</div>
+  <div class="warning-box">🚨 <strong>2026-07-03 重新 curl 實測：仍未修復。</strong>抽查另一商品頁，107 張圖片中 101 張缺 alt（94% 缺失），與 06-18 記錄嚴重程度一致，無進展。</div>
 
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>設定產品圖片 Alt</h3></div>
@@ -1684,6 +1751,8 @@ h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</p
   <div class="content-card">
     <p><strong>為什麼最重要？</strong>Schema 是給 AI 看的「說明書」，沒有 Schema → AI 幾乎不引用您的網站。</p>
   </div>
+
+  <div class="warning-box">🆕🚨 <strong>2026-07-03 curl 實測新發現：</strong>首頁與商品頁的原始 HTML 目前都同時輸出 <strong>2 組</strong> <code>Organization</code> schema，內容不同：一組只有 <code>name</code>/<code>url</code>/<code>logo</code> 三個欄位（疑似 Shopline 主題內建預設，並非下方 Y-06 教學加入的版本）；另一組是下方教學版本，含統編（<code>taxID</code>）、聯絡資訊、地址。兩組同時存在等於重複宣告同一實體，建議請工程師檢查 <code>layout/theme.liquid</code> 是否有主題內建的 Organization schema 沒有停用，移除後只保留完整版。</div>
 
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>Y-06：Organization Schema（品牌身份）</h3></div>
@@ -1823,6 +1892,7 @@ h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</p
   <div class="info-box">平台：WordPress + AIOSEO（外掛已換成 AIOSEO，非 Yoast） ｜ 預計時間：1-2 小時 ｜ 難度：⭐</div>
 
   <div class="warning-box">⚠️ <strong>2026-06-18 curl 實測發現：</strong>首頁與文章頁的原始 HTML 都同時輸出 <strong>2 組</strong> <code>&lt;meta name="description"&gt;</code>，內容彼此不同（一組來自 AIOSEO，一組疑似舊 theme header.php 殘留）。在 AIOSEO 後台填入的內容是正確的，但若 theme 裡還有寫死的 description 輸出沒清掉，瀏覽器/爬蟲可能讀到錯的那一組。建議請工程師檢查 theme 的 <code>header.php</code> 或 <code>functions.php</code>（先前紀錄提到 <code>neoton/functions.php</code> 的 <code>neoton_seo_meta()</code>），確認是否有重複輸出 description/og 標籤的程式碼，移除後只保留 AIOSEO 一份。</div>
+  <div class="verify-box">✅ <strong>2026-07-03 重新 curl 實測：已修復。</strong>抽查首頁 + 2 篇文章，每頁只剩 1 組 <code>&lt;meta name="description"&gt;</code>，重複輸出的來源已被清除，不需再追查。</div>
 
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>設定首頁 Meta Description（S-02）</h3></div>
@@ -1910,6 +1980,7 @@ h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</p
   </div>
 
   <div class="warning-box">⚠️ <strong>2026-06-18 curl 實測發現：</strong>文章頁的結構化資料目前重複宣告 2 次——AIOSEO 的 <code>@graph</code> 裡有一個 BlogPosting，另外又有一個獨立 <code>&lt;script&gt;</code> 輸出幾乎相同的 Article schema（同時 BreadcrumbList 也重複 2 次）。這應該是換成 AIOSEO 之前殘留的手動 schema 程式碼沒清掉。建議找 theme 裡手動輸出 Article/BreadcrumbList 的程式碼（同樣可能在 <code>neoton/functions.php</code>）並移除，只保留 AIOSEO 自動產生的 <code>@graph</code> 版本，避免 Google/AI 解析時遇到重複實體宣告。</div>
+  <div class="verify-box">✅ <strong>2026-07-03 重新 curl 實測：已修復。</strong>文章頁只剩 1 個 <code>application/ld+json</code> script（AIOSEO 的 @graph），內含 BlogPosting、BreadcrumbList、Organization、<strong>Person（新增）</strong>、WebPage、WebSite，沒有重複宣告。舊 theme 殘留的獨立 schema script 已被清除，不需再追查。</div>
 
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>在 Yoast 設定文章 Schema 類型</h3></div>
@@ -1958,6 +2029,8 @@ h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</p
 <div class="page" id="page-s06">
   <h2 class="section-title">💡 S-06｜文章「一句話摘要」AIO 優化 <span class="priority priority-medium">高優先</span></h2>
   <div class="info-box">平台：WordPress ｜ 每篇 5-10 分鐘 ｜ 難度：⭐</div>
+
+  <div class="verify-box">✅ <strong>2026-07-03 curl 實測確認：</strong>抽查〈蝦紅素護眼效果〉開頭第一段已直接給數據化答案（「每日補充 4-12mg 蝦紅素能顯著改善視網膜功能」），符合下方摘要格式原則。近期改寫的文章已套用此標準。</div>
 
   <div class="content-card">
     <p><strong>AI 引用的關鍵習慣：</strong>Google AI Overview、Perplexity、ChatGPT 優先引用「開頭就直接回答問題」的文章。</p>
@@ -2088,6 +2161,8 @@ h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</p
   <h2 class="section-title">📚 S-08｜加入學術參考文獻 <span class="priority priority-medium">高優先</span></h2>
   <div class="info-box">平台：WordPress ｜ 每篇 20-30 分鐘 ｜ 難度：⭐⭐</div>
 
+  <div class="verify-box">✅ <strong>2026-07-03 curl 實測確認：</strong>抽查〈蝦紅素護眼效果〉內文已有 PubMed Central（pmc.ncbi.nlm.nih.gov）真實研究連結，且引用具體期刊名稱與數據。近期改寫的文章已套用此標準，建議持續針對舊文章補齊。</div>
+
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>找學術來源</h3></div>
     <div class="step-content">
@@ -2181,6 +2256,8 @@ h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</p
   <h2 class="section-title">👤 S-10｜作者頁面 + Person Schema <span class="priority priority-low">中優先</span></h2>
   <div class="info-box">平台：WordPress ｜ 預計時間：2-3 小時 ｜ 難度：⭐⭐</div>
 
+  <div class="verify-box">✅ <strong>2026-07-03 curl 實測確認：</strong>/author/user/ 頁面已有實質簡介文字（說明內容引用 PubMed、Cochrane 等資料庫、經專業人員審核），且 schema 的 @graph 中已有 Person 區塊連結至該頁。目前作者名稱仍是團隊統稱「苼莛官方營養師與健康內容編輯團隊」而非具名個人，若要進一步強化 E-E-A-T，可考慮補上具名營養師/醫師及其證照資訊。</div>
+
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>完善使用者個人資料</h3></div>
     <div class="step-content">
@@ -2230,6 +2307,7 @@ h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</p
   <div class="info-box">平台：WordPress ｜ 每篇約 10 分鐘 ｜ 難度：⭐</div>
 
   <div class="warning-box">⚠️ <strong>2026-06-18 curl 實測：</strong>先前記錄「7246張已補齊」，但抽查文章〈蝦紅素護眼效果〉66張圖仍有10張缺alt（85%覆蓋，未達95%目標）。可能是這批文章是後來新增/改寫的，沒被列入當時的批次處理範圍。建議用 Step 2 的工具重新跑一次全站掃描，抓出目前的實際缺失清單。</div>
+  <div class="warning-box">⚠️ <strong>2026-07-03 重新 curl 實測：仍未達標，無進展。</strong>抽查同一篇〈蝦紅素護眼效果〉仍是66張圖10張缺alt，另抽查〈梅納反應〉一文76張圖中11張缺alt（約85%覆蓋），與06-18記錄一致，建議儘快排入全站掃描補齊計畫。</div>
 
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>在媒體庫批次設定 Alt</h3></div>
@@ -2394,15 +2472,18 @@ const totalTasks = 19;
 // 已由每日自動檢查驗證為「線上確認完成」的項目
 // 每次自動檢查後會更新這份清單
 const VERIFIED_DONE = {
-  'y01': false,  // Meta Description ❌ 2026-06-18 發現商品頁被 FAQ 全文覆蓋（近6000字），需重開
-  'y03': false,  // Open Graph ❌ 2026-06-18 og:description 同樣被 FAQ 全文覆蓋
-  'y06': true,   // Schema（Organization + Product）✅ curl 確認（brand 欄位仍空）
-  'y05': false,  // H1 ❌ 2026-06-18 實測首頁完全沒有 H1（不是H2取代，是真的0個）
+  'y01': false,  // Meta Description ❌ 2026-07-03 重測仍被 FAQ 全文覆蓋（實測5560字），2週多無進展
+  'y03': false,  // Open Graph ❌ 2026-07-03 重測 og:description 仍同一份爆量內容
+  'y06': false,  // Schema（Organization + Product）❌ 2026-07-03 新發現 Organization Schema 重複宣告2次；brand欄位仍空
+  'y05': true,   // H1 ✅ 2026-07-03 新發現首頁已有1個 H1（class="visually-hidden"，爬蟲可讀）
   's01': true,   // AIOSEO ✅ 已驗證運作中（generator meta 確認為 AIOSEO 4.6.2）
-  's02': true,   // Meta Description 403篇 ✅ 內容確認存在，但 2026-06-18 發現每頁重複輸出2組（見S-02頁警告）
-  's05': true,   // Article Schema ✅ AIOSEO BlogPosting 已輸出，但 2026-06-18 發現每頁重複宣告2次（見S-05頁警告）
-  's11': true,   // 圖片 Alt ✅ 7246 張已補齊（2026-05-29），但 2026-06-18 抽查單篇仍有10/66缺失，建議重新全站掃描
-  'y12': true,   // Google Business Profile ✅ 已申請進入（2026-06-01）
+  's02': true,   // Meta Description 403篇 ✅ 2026-07-03 確認重複問題已修復，每頁僅剩1組
+  's05': true,   // Article Schema ✅ 2026-07-03 確認重複問題已修復，每頁僅剩1組 AIOSEO @graph
+  's06': true,   // 文章摘要前置 ✅ 2026-07-03 新確認：文章開頭已直接給數據化答案
+  's08': true,   // 學術參考文獻 ✅ 2026-07-03 新確認：內文已有 PubMed Central 研究連結
+  's10': true,   // 作者頁 + Person Schema ✅ 2026-07-03 新確認：/author/user/ 已有實質簡介
+  's11': true,   // 圖片 Alt ⚠️ 7246 張已補齊（2026-05-29），但 2026-07-03 重測仍約85%覆蓋，未達95%，無進展
+  'y12': true,   // Google Business Profile ✅ 已申請進入（2026-06-01，本次未重新驗證）
   's04': true,   // H1 修正 ✅ 文章頁 H1 確認正確（2026-06-01 curl 實測）
   's09': true,   // URL 英文化 ✅ 全站 404 篇均為英文 URL（2026-06-01 sitemap 確認）
 };
