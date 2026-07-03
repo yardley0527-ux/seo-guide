@@ -799,7 +799,7 @@
         <li>Product Schema ⚠️ brand 欄位仍空白（未修復）</li>
         <li>圖片 Alt ❌ 商品頁實測 101/107 張缺失（94%，維持嚴重）</li>
         <li>分類頁/首頁商品列表 ❌ 原始 HTML 仍是 <code>{{item.product_id}}</code> 樣板字串未渲染，AI 爬蟲讀不到</li>
-        <li>商品 Title ❌ 仍用檔期活動命名（如「618購物節🎉」），含 emoji（未修復）</li>
+        <li>商品 Title ⚠️ 商品名稱/H1已改成「年中慶購物節」（無emoji），但SEO &lt;title&gt;/og:title欄位仍是舊的「618購物節🎉」未同步更新，造成前台顯示與搜尋結果標題不一致</li>
         <li>About 頁 ❌ /pages/about 仍 302 重導回首頁，頁面不存在</li>
       </ul>
     </div>
@@ -833,7 +833,7 @@
       <tr><td>yardley.tw</td><td>Product Schema</td><td>⚠️ 確認存在，brand 欄位仍為空字串，未修復</td></tr>
       <tr><td>yardley.tw</td><td>商品頁圖片 Alt</td><td>❌ 抽查 1 頁 107 張圖中 101 張缺失（94%），持續嚴重</td></tr>
       <tr><td>yardley.tw</td><td>分類頁商品列表渲染</td><td>❌ 原始 HTML 仍為 <code>{{item.product_id}}</code> 等樣板字串，未修復</td></tr>
-      <tr><td>yardley.tw</td><td>商品 Title</td><td>❌ 仍用檔期活動命名＋emoji，如「618購物節🎉巔峰代謝女神組」，未修復</td></tr>
+      <tr><td>yardley.tw</td><td>商品 Title</td><td>⚠️ 商品名稱/H1已修正為「年中慶購物節」（無emoji），但 &lt;title&gt;/og:title 仍是舊值「618購物節🎉」未同步，前台與SEO標題不一致</td></tr>
       <tr><td>yardley.tw</td><td>About 頁面</td><td>❌ /pages/about 302 重導回首頁，頁面仍不存在</td></tr>
       <tr><td>shengtingbio.com</td><td>H1 標籤（文章頁）</td><td>✅ 確認</td></tr>
       <tr><td>shengtingbio.com</td><td>URL 英文化</td><td>✅ 全站均為英文 slug</td></tr>
@@ -875,8 +875,15 @@
     <div class="problem-item">
       <div class="problem-icon">📦</div>
       <div>
-        <h4>yardley.tw 分類頁商品列表未渲染 + 商品Title含檔期活動命名</h4>
-        <p>分類頁商品列表在原始HTML是Vue樣板字串，AI爬蟲看到空殼；商品標題仍用「618購物節🎉」等活動命名+emoji，不利AI理解商品本質</p>
+        <h4>yardley.tw 分類頁商品列表未渲染</h4>
+        <p>分類頁商品列表在原始HTML是Vue樣板字串，AI爬蟲看到空殼</p>
+      </div>
+    </div>
+    <div class="problem-item">
+      <div class="problem-icon">🏷️</div>
+      <div>
+        <h4>yardley.tw 商品名稱與SEO標題不同步（部分修復）</h4>
+        <p>4個組合商品的商品名稱/H1已改成「年中慶購物節」（無emoji），但SEO &lt;title&gt;、og:title 欄位還是舊的「618購物節🎉」，前台顯示跟Google搜尋結果/社群分享標題會不一致，需請Shopline後台把這兩處欄位一起同步更新</p>
       </div>
     </div>
     <div class="problem-item">
@@ -943,6 +950,14 @@
 
   <div class="content-card">
     <h3 class="sub-title">2026-07-03｜curl 實測重新驗證，shengtingbio.com 重大改善</h3>
+
+    <div class="step">
+      <div class="step-header"><div class="step-num" style="background:#e67e22">!</div><h3>yardley.tw：商品名稱已改，但SEO Title欄位沒同步（追加發現）</h3></div>
+      <div class="step-content">
+        <p>使用者回報「618購物節🎉巔峰代謝女神組」的活動命名已經改掉，重新 curl 確認後發現：<strong>商品名稱與H1確實已改成「年中慶購物節」（無emoji）</strong>，前台分類頁與商品頁都看得到新名稱。但 <code>&lt;title&gt;</code> 標籤與 <code>og:title</code> 兩處<strong>仍是舊值「618購物節🎉」</strong>，4個組合商品（巔峰代謝女神組、全方位輕盈女神組、不囤積輕盈組、私密輕盈養成組）都是同樣狀況。這代表 Shopline 後台的「商品名稱」欄位跟「SEO標題」是分開存的，改了一個沒有連動改另一個，導致瀏覽器分頁、Google搜尋結果、社群分享預覽看到的還是舊標題。另外也確認：其餘16個單一成分商品（非組合包）的 title 標籤本來就是乾淨的，沒有活動命名問題，範圍僅限這4個組合商品。</p>
+        <div class="warning-box">⚠️ 建議請 Shopline 後台把這4個組合商品的 SEO 標題欄位，跟已更新的商品名稱欄位同步一致。</div>
+      </div>
+    </div>
 
     <div class="step">
       <div class="step-header"><div class="step-num" style="background:#52b788">✓</div><h3>shengtingbio.com：重複 Meta/OG/Schema 問題已全部修復</h3></div>
@@ -2346,6 +2361,9 @@ h1s.forEach((h1,i) => console.log(`H1[${i+1}]: "${h1.textContent.trim()}"`));</p
 <div class="page" id="page-y09">
   <h2 class="section-title">✏️ Y-09｜Title 標籤優化 <span class="priority priority-medium">高優先</span></h2>
   <div class="info-box">平台：Shopline ｜ 預計時間：30 分鐘 ｜ 難度：⭐</div>
+
+  <div class="warning-box">⚠️ <strong>2026-07-03 curl 實測發現：</strong>4個組合商品（如「巔峰代謝女神組」）的商品名稱/H1已經改成「年中慶購物節」（無emoji），但 <code>&lt;title&gt;</code> 與 <code>og:title</code> 欄位還停留在舊值「618購物節🎉」沒有同步更新。建議請 Shopline 後台檢查這4個組合商品的 SEO 標題欄位，跟商品名稱欄位改成一致。</div>
+
   <div class="step">
     <div class="step-header"><div class="step-num">1</div><h3>各頁面 Title 建議</h3></div>
     <div class="step-content">
